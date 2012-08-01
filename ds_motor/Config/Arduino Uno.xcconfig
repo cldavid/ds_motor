@@ -19,7 +19,7 @@ BOARD_TAG  = uno
 // Port (optionnal)
 // most common are /dev/tty.usbserial*, /dev/tty.usbmodem* or /dev/tty.uart*
 //
-BOARD_PORT = /dev/tty.usbmodem621
+BOARD_PORT = /dev/tty.usbmodem*
 
 // References for Xcode code-sense
 // see Boards.txt for <tag>.build.mcu=<GCC_PREPROCESSOR_DEFINITIONS>

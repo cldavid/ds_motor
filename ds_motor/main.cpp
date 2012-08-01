@@ -54,8 +54,8 @@ int main(void)
     setup();
     for (;;) {
         loop();
-        if(Serial.available()) {
-            serialEvent();
+        if(serialEventRun) {
+            serialEventRun();
         }
     }
     return 0;

@@ -19,6 +19,7 @@
 
 
 #include "LocalLibrary.h"
+#include "string.h"
 #include "dc_time.h"
 
 void processCommand(const char *recvString) {

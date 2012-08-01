@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6797508515C99600003F30DA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508415C99600003F30DA /* main.cpp */; };
 		6797508815C99600003F30DA /* LocalLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508715C99600003F30DA /* LocalLibrary.cpp */; };
 		6797508B15C99600003F30DA /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6797508A15C99600003F30DA /* Makefile */; };
 		6797509415C99601003F30DA /* CDC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797509315C99601003F30DA /* CDC.cpp */; };
@@ -224,6 +223,7 @@
 		679753A515C99606003F30DA /* TimedAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753A415C99606003F30DA /* TimedAction.cpp */; };
 		679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753E815C9A0B8003F30DA /* dc_time.cpp */; };
 		679753EB15C9A615003F30DA /* ds_motor.pde in Sources */ = {isa = PBXBuildFile; fileRef = 6797508615C99600003F30DA /* ds_motor.pde */; };
+		67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508415C99600003F30DA /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2351,7 +2351,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				679753EB15C9A615003F30DA /* ds_motor.pde in Sources */,
-				6797508515C99600003F30DA /* main.cpp in Sources */,
 				6797508815C99600003F30DA /* LocalLibrary.cpp in Sources */,
 				6797508B15C99600003F30DA /* Makefile in Sources */,
 				6797509415C99601003F30DA /* CDC.cpp in Sources */,
@@ -2567,6 +2566,7 @@
 				679753A115C99606003F30DA /* Supervisor.cpp in Sources */,
 				679753A515C99606003F30DA /* TimedAction.cpp in Sources */,
 				679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */,
+				67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2582,7 +2582,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2745,6 +2745,7 @@
 				679753CD15C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753CE15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Boards" */ = {
 			isa = XCConfigurationList;
@@ -2753,6 +2754,7 @@
 				679753D015C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753D115C99607003F30DA /* Build configuration list for PBXLegacyTarget "All" */ = {
 			isa = XCConfigurationList;
@@ -2761,6 +2763,7 @@
 				679753D315C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753D415C99607003F30DA /* Build configuration list for PBXLegacyTarget "Serial" */ = {
 			isa = XCConfigurationList;
@@ -2769,6 +2772,7 @@
 				679753D615C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753D715C99607003F30DA /* Build configuration list for PBXLegacyTarget "Upload" */ = {
 			isa = XCConfigurationList;
@@ -2777,6 +2781,7 @@
 				679753D915C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753DA15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Clean" */ = {
 			isa = XCConfigurationList;
@@ -2785,6 +2790,7 @@
 				679753DC15C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753DD15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Make" */ = {
 			isa = XCConfigurationList;
@@ -2793,6 +2799,7 @@
 				679753DF15C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753E015C99607003F30DA /* Build configuration list for PBXLegacyTarget "Build" */ = {
 			isa = XCConfigurationList;
@@ -2801,6 +2808,7 @@
 				679753E215C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		679753E315C99607003F30DA /* Build configuration list for PBXLegacyTarget "Document" */ = {
 			isa = XCConfigurationList;
@@ -2809,6 +2817,7 @@
 				679753E515C99607003F30DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
