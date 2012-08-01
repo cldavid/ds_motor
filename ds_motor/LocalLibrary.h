@@ -35,15 +35,24 @@
 
 #ifndef ds_motor_LocalLibrary_h
 #define ds_motor_LocalLibrary_h
+#include <stddef.h>
 
-///
-/// @brief	Blink a LED
-/// @details	LED attached to pin is light on then light off
-/// @n		Total cycle duration = ms
-/// @param	pin pin to which the LED is attached
-/// @param	times number of times
-/// @param	ms cycle duration in ms
-///
-void blink(uint8_t pin, uint8_t times, uint16_t ms);
+#define SERIAL_BAUD_RATE    9600
+#define SERIAL_INPUT_MAX    255
+
+
+typedef struct {
+	char    buffer[SERIAL_INPUT_MAX+1];
+	size_t  len;
+	bool    ready;
+} ser_string_t; 
+
+#define s_buffer_add(x) 	(s_input.buffer[s_input.len++] = x)
+#define s_buffer			s_input.buffer
+#define s_lastChar			s_input.buffer[s_input.len]
+#define s_len				s_input.len
+#define s_ready 			s_input.ready
+
+void processCommand(const char *recvString);
 
 #endif

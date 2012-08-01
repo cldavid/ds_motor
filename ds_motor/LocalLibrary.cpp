@@ -14,17 +14,35 @@
 // Copyright © David Cluytens, 2012
 // Licence CC = BY NC SA
 //
-// See LocalLibrary.cpp.h and ReadMe.txt for references
+// See LocalLibrary.h and ReadMe.txt for references
 //
 
 
 #include "LocalLibrary.h"
+#include "dc_time.h"
 
-void blink(uint8_t pin, uint8_t times, uint16_t ms) {
-  for (uint8_t i=0; i<times; i++) {
-    digitalWrite(pin, HIGH); 
-    delay(ms >> 1);               
-    digitalWrite(pin, LOW);  
-    delay(ms >> 1);              
-  }
+void processCommand(const char *recvString) {
+	char cmd[64];
+	char arg[64];
+    
+	sscanf(recvString, "%s %s", cmd, arg);
+    
+	if (!strcmp("setEpoch", cmd)) {
+		unsigned long epoch = strtoul(arg, NULL, 10);
+		dc_setUnixTime(epoch);
+		return;
+	}
+    
+	if (!strcmp("getEpoch", cmd)) {
+		char humanTime[24] = "";
+		dc_ctime(humanTime, sizeof(humanTime));
+		Serial.print(humanTime);
+		Serial.println("");
+		return;
+	}
+    
+	if (!strcmp("Hello World", recvString)) {
+		Serial.print("Received Hello World");
+		Serial.println("");
+	}
 }

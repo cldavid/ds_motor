@@ -32,17 +32,11 @@
 #include "WProgram.h"
 #endif
 
-
 // Include application, user and local libraries
+#include <dc_time.h>
 #include "LocalLibrary.h"
 
-
-// Define variables and constants
-///
-/// @brief	Name of the LED
-/// @details	Each board has a LED but connected to a different pin
-///
-uint8_t LED1;
+ser_string_t 	s_input;
 
 
 ///
@@ -51,20 +45,9 @@ uint8_t LED1;
 ///
 // Add setup code 
 void setup() {
-    // LED1 pin number
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega2560__) // Arduino specific
-    LED1 = 13; 
-#elif defined(__PIC32MX__) // chipKIT specific
-    LED1 = 13;
-#elif defined(__AVR_ATmega644P__) // Wiring specific
-    LED1 = 15; 
-#elif defined(__MSP430G2452__) || defined(__MSP430G2553__) || defined(__MSP430G2231__) // LaunchPad specific
-    LED1 = 2; 
-#elif defined(MCU_STM32F103RB) || defined(MCU_STM32F103ZE) || defined(MCU_STM32F103CB) || defined(MCU_STM32F103RE) // Maple specific
-    LED1 = BOARD_LED_PIN; 
-#endif
-
-    pinMode(LED1, OUTPUT);     
+	memset(&s_input, 0, sizeof(ser_string_t));
+	void dc_time_init(void);
+	Serial.begin(SERIAL_BAUD_RATE);  
 }
 
 ///
@@ -73,6 +56,34 @@ void setup() {
 ///
 // Add loop code 
 void loop() {
-  blink(LED1, 3, 333);
-  delay(1000);    
+	unsigned long 	time;
+	
+	time = millis();
+	dc_updateTime(time);
+
+	if (s_ready) {
+		Serial.println("");
+		processCommand(s_buffer);
+		s_len 	= 0;
+		s_ready = false;
+	}   
+}
+
+void serialEvent() {
+	char inChar;
+	/* 
+	   Only read from the serial input when data is available
+	   And output buffer is not being handled 
+	 */
+	while (Serial.available()) {
+		inChar	= (char)Serial.read(); 										
+		Serial.print(inChar); 									
+		if (inChar == '\n' || inChar == '\r' || s_len > SERIAL_INPUT_MAX) {
+			s_buffer_add('\0');	
+			s_ready = true;	
+			return;										
+		}
+		s_buffer_add(inChar); 				
+	}
+	return;
 }

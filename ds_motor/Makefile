@@ -55,7 +55,7 @@ APP_LIBS_LIST = 0
 	MatrixMath MsTimer2 Serial_GPS pic32_RTC \
 	DWIFIcK DWIFIcK/Utility 
 
-USER_LIBS_LIST = 0
+USER_LIBS_LIST = dc_time
 
 
 MAKEFILE_PATH  = $(CURDIR)/Makefiles
