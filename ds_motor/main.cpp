@@ -52,6 +52,11 @@ int main(void)
 #endif
 
     setup();
-    for (;;) loop();
+    for (;;) {
+        loop();
+        if(Serial.available()) {
+            serialEvent();
+        }
+    }
     return 0;
 }

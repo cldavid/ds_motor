@@ -54,6 +54,13 @@ OBJCOPY = $(APP_TOOLS_PATH)/avr-objcopy
 SIZE    = $(APP_TOOLS_PATH)/avr-size
 NM      = $(APP_TOOLS_PATH)/avr-nm
 
+#CC      = /opt/local/avr/bin/gcc
+#CXX     = /opt/local/avr/bin/g++
+#AR      = /opt/local/avr/bin/ar
+#OBJDUMP = /opt/local/avr/bin/objdump
+#OBJCOPY = /opt/local/avr/bin/objcopy
+#SIZE    = /opt/local/avr/bin/size
+#NM      = /opt/local/avr/bin/nm
 
 BOARD    = $(call PARSE_BOARD,$(BOARD_TAG),board)
 #LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),ldscript)

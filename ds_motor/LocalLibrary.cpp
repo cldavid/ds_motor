@@ -34,12 +34,17 @@ void processCommand(const char *recvString) {
 	}
     
 	if (!strcmp("getEpoch", cmd)) {
-		char humanTime[24] = "";
+		Serial.println(dc_getUnixTime());
+		return;
+	}
+    
+    if (!strcmp("getDate", cmd)) {
+        char humanTime[24] = "";
 		dc_ctime(humanTime, sizeof(humanTime));
 		Serial.print(humanTime);
 		Serial.println("");
-		return;
-	}
+		return;   
+    }
     
 	if (!strcmp("Hello World", recvString)) {
 		Serial.print("Received Hello World");

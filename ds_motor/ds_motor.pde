@@ -41,7 +41,7 @@ ser_string_t 	s_input;
 
 ///
 /// @brief	Setup
-/// @details	Define the pin the LED is connected to
+/// @details
 ///
 // Add setup code 
 void setup() {
@@ -60,7 +60,6 @@ void loop() {
 	
 	time = millis();
 	dc_updateTime(time);
-
 	if (s_ready) {
 		Serial.println("");
 		processCommand(s_buffer);

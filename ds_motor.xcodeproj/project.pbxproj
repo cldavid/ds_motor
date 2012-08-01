@@ -2184,11 +2184,12 @@
 /* Begin PBXLegacyTarget section */
 		6797507B15C99600003F30DA /* Boards */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "boards -C $(PROJECT)";
+			buildArgumentsString = boards;
 			buildConfigurationList = 679753CE15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Boards" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Boards;
@@ -2197,11 +2198,12 @@
 		};
 		6797507C15C99600003F30DA /* All */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "all -C $(PROJECT)";
+			buildArgumentsString = all;
 			buildConfigurationList = 679753D115C99607003F30DA /* Build configuration list for PBXLegacyTarget "All" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = All;
@@ -2210,11 +2212,12 @@
 		};
 		6797507D15C99600003F30DA /* Serial */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "serial -C $(PROJECT)";
+			buildArgumentsString = serial;
 			buildConfigurationList = 679753D415C99607003F30DA /* Build configuration list for PBXLegacyTarget "Serial" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Serial;
@@ -2223,11 +2226,12 @@
 		};
 		6797507E15C99600003F30DA /* Upload */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "upload -C $(PROJECT)";
+			buildArgumentsString = upload;
 			buildConfigurationList = 679753D715C99607003F30DA /* Build configuration list for PBXLegacyTarget "Upload" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Upload;
@@ -2236,11 +2240,12 @@
 		};
 		6797507F15C99600003F30DA /* Clean */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "clean -C $(PROJECT)";
+			buildArgumentsString = clean;
 			buildConfigurationList = 679753DA15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Clean" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Clean;
@@ -2249,11 +2254,12 @@
 		};
 		6797508015C99600003F30DA /* Make */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "make -C $(PROJECT)";
+			buildArgumentsString = "make ";
 			buildConfigurationList = 679753DD15C99607003F30DA /* Build configuration list for PBXLegacyTarget "Make" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Make;
@@ -2262,11 +2268,12 @@
 		};
 		6797508115C99600003F30DA /* Build */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "build -C $(PROJECT)";
+			buildArgumentsString = build;
 			buildConfigurationList = 679753E015C99607003F30DA /* Build configuration list for PBXLegacyTarget "Build" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Build;
@@ -2275,11 +2282,12 @@
 		};
 		6797508215C99600003F30DA /* Document */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "document -C $(PROJECT)";
+			buildArgumentsString = "document ";
 			buildConfigurationList = 679753E315C99607003F30DA /* Build configuration list for PBXLegacyTarget "Document" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
+			buildWorkingDirectory = "$(PROJECT)";
 			dependencies = (
 			);
 			name = Document;
@@ -2570,6 +2578,7 @@
 			baseConfigurationReference = 679753AA15C99606003F30DA /* Arduino Uno.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARDUINO = 101;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2593,6 +2602,7 @@
 			baseConfigurationReference = 679753AA15C99606003F30DA /* Arduino Uno.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARDUINO = 101;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
