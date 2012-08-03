@@ -40,6 +40,12 @@
 #define SERIAL_BAUD_RATE    9600
 #define SERIAL_INPUT_MAX    255
 
+typedef struct {
+    unsigned long   time;
+    unsigned long   rt_time;
+    unsigned long   next_event;
+    void          (*event_cb)(unsigned long time, unsigned long rt_time);
+} event_t;
 
 typedef struct {
 	char    buffer[SERIAL_INPUT_MAX+1];
@@ -53,6 +59,8 @@ typedef struct {
 #define s_len				s_input.len
 #define s_ready 			s_input.ready
 
+void start_pump_one(unsigned long time, unsigned long rt_time);
+void testEvent(void);
 void processCommand(const char *recvString);
 
 #endif

@@ -37,7 +37,7 @@
 #include "LocalLibrary.h"
 
 ser_string_t 	s_input;
-
+unsigned long 	time;
 
 ///
 /// @brief	Setup
@@ -56,10 +56,12 @@ void setup() {
 ///
 // Add loop code 
 void loop() {
-	unsigned long 	time;
-	
 	time = millis();
-	dc_updateTime(time);
+	
+    dc_updateTime(time);
+    
+    testEvent();
+    
 	if (s_ready) {
 		Serial.println("");
 		processCommand(s_buffer);
