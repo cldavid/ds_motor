@@ -47,7 +47,19 @@ unsigned long 	time;
 void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
-	Serial.begin(SERIAL_BAUD_RATE);  
+	Serial.begin(SERIAL_BAUD_RATE); 
+    pinMode(8, OUTPUT); 
+    pinMode(9, OUTPUT); 
+    pinMode(10, OUTPUT); 
+    pinMode(11, OUTPUT); 
+    pinMode(12, OUTPUT); 
+    pinMode(13, OUTPUT);
+    digitalWrite(8, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(10, LOW);
+    digitalWrite(11, LOW);
+    digitalWrite(12, LOW);
+    digitalWrite(13, LOW);
 }
 
 ///
@@ -60,7 +72,7 @@ void loop() {
 	
     dc_updateTime(time);
     
-    testEvent();
+    handleEvents();
     
 	if (s_ready) {
 		Serial.println("");

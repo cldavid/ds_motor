@@ -42,9 +42,10 @@
 
 typedef struct {
     unsigned long   time;
+    unsigned int    pin;
     unsigned long   rt_time;
     unsigned long   next_event;
-    void          (*event_cb)(unsigned long time, unsigned long rt_time);
+    void          (*event_cb)(unsigned long time, unsigned int pin, unsigned long rt_time);
 } event_t;
 
 typedef struct {
@@ -59,8 +60,8 @@ typedef struct {
 #define s_len				s_input.len
 #define s_ready 			s_input.ready
 
-void start_pump_one(unsigned long time, unsigned long rt_time);
-void testEvent(void);
+void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
+void handleEvents(void);
 void processCommand(const char *recvString);
 
 #endif
