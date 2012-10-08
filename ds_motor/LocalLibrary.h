@@ -42,8 +42,8 @@
 
 typedef struct {
     unsigned long   time;
-    unsigned int    pin;
     unsigned long   rt_time;
+    unsigned int    pin;
     unsigned long   next_event;
     void          (*event_cb)(unsigned long time, unsigned int pin, unsigned long rt_time);
 } event_t;
@@ -60,7 +60,15 @@ typedef struct {
 #define s_len				s_input.len
 #define s_ready 			s_input.ready
 
+void println(const char *buffer);
+
+void get_motor_event_info(unsigned int motor);
+void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned long rt_time, unsigned long rp_time);
+
+void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
+void start_pump2(unsigned long time, unsigned int pin, unsigned long rt_time);
 void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
+void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
 void handleEvents(void);
 void processCommand(const char *recvString);
 
