@@ -60,6 +60,9 @@ void setup() {
     digitalWrite(11, LOW);
     digitalWrite(12, LOW);
     digitalWrite(13, LOW);
+        
+    /* Read Event List From EEPROM */
+    eeprom_read_config();
 }
 
 ///
@@ -68,18 +71,23 @@ void setup() {
 ///
 // Add loop code 
 void loop() {
+    unsigned long cur_time;
+    static unsigned long prev_time;
+    
 	time = millis();
 	
     dc_updateTime(time);
-    
-    handleEvents();
+    cur_time = dc_getUnixTime();
+
+    handleEvents(cur_time, prev_time);
     
 	if (s_ready) {
 		Serial.println("");
 		processCommand(s_buffer);
 		s_len 	= 0;
 		s_ready = false;
-	}   
+	}
+    prev_time = cur_time;
 }
 
 void serialEvent() {

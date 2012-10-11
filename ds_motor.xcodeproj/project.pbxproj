@@ -224,6 +224,7 @@
 		679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753E815C9A0B8003F30DA /* dc_time.cpp */; };
 		679753EB15C9A615003F30DA /* ds_motor.pde in Sources */ = {isa = PBXBuildFile; fileRef = 6797508615C99600003F30DA /* ds_motor.pde */; };
 		67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508415C99600003F30DA /* main.cpp */; };
+		67E96243162374DF00067E14 /* dc_eeprom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E96242162374DF00067E14 /* dc_eeprom.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -742,6 +743,8 @@
 		679753C815C99607003F30DA /* doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = doxyfile; path = Utilities/doxyfile; sourceTree = "<group>"; };
 		679753E815C9A0B8003F30DA /* dc_time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dc_time.cpp; sourceTree = "<group>"; };
 		679753E915C9A0B8003F30DA /* dc_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc_time.h; sourceTree = "<group>"; };
+		67E96241162373CE00067E14 /* dc_eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc_eeprom.h; sourceTree = "<group>"; };
+		67E96242162374DF00067E14 /* dc_eeprom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dc_eeprom.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -2164,6 +2167,7 @@
 		679753E615C9A0B8003F30DA /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67E9623F1623738200067E14 /* EEPROM */,
 				679753E715C9A0B8003F30DA /* dc_time */,
 			);
 			name = libraries;
@@ -2177,6 +2181,16 @@
 				679753E915C9A0B8003F30DA /* dc_time.h */,
 			);
 			path = dc_time;
+			sourceTree = "<group>";
+		};
+		67E9623F1623738200067E14 /* EEPROM */ = {
+			isa = PBXGroup;
+			children = (
+				67E96241162373CE00067E14 /* dc_eeprom.h */,
+				67E96242162374DF00067E14 /* dc_eeprom.cpp */,
+			);
+			name = EEPROM;
+			path = ../Libraries/EEPROM;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2566,6 +2580,7 @@
 				679753A115C99606003F30DA /* Supervisor.cpp in Sources */,
 				679753A515C99606003F30DA /* TimedAction.cpp in Sources */,
 				679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */,
+				67E96243162374DF00067E14 /* dc_eeprom.cpp in Sources */,
 				67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -60,6 +60,9 @@ typedef struct {
 #define s_len				s_input.len
 #define s_ready 			s_input.ready
 
+void eeprom_read_config(void);
+void eeprom_write_event_list(unsigned long t);
+
 void println(const char *buffer);
 
 void get_motor_event_info(unsigned int motor);
@@ -69,7 +72,7 @@ void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time)
 void start_pump2(unsigned long time, unsigned int pin, unsigned long rt_time);
 void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
 void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
-void handleEvents(void);
+void handleEvents(unsigned long cur_time, unsigned long prev_time);
 void processCommand(const char *recvString);
 
 #endif

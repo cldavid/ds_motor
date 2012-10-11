@@ -163,6 +163,7 @@ TARGET_A   = $(OBJDIR)/$(TARGET).a
 TARGET_HEX = $(OBJDIR)/$(TARGET).hex
 TARGET_ELF = $(OBJDIR)/$(TARGET).elf
 TARGET_BIN = $(OBJDIR)/$(TARGET).bin
+TARGET_EEP = $(OBJDIR)/$(TARGET).eep
 TARGETS    = $(OBJDIR)/$(TARGET).*
 
 ifeq ($(PLATFORM),MapleIDE)
@@ -485,7 +486,7 @@ build: 		clean compile
 
 make:		changed compile
 
-compile:	$(OBJDIR) $(TARGET_HEXBIN) size
+compile:	$(OBJDIR) $(TARGET_HEXBIN) $(TARGET_EEP) size
 		@echo " ---- compile ---- "
 		@echo $(BOARD_TAG) > $(NEW_TAG)
        
@@ -509,12 +510,12 @@ $(DEP_FILE):	$(OBJDIR) $(DEPS)
 		@cat $(DEPS) > $(DEP_FILE)
 
 upload:		reset raw_upload
-
+#-Ueeprom:w:$(TARGET_EEP)
 
 raw_upload:
 		@echo " ---- upload ---- "
 ifeq ($(UPLOADER),avrdude)
-		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_OPTS) -Uflash:w:$(TARGET_HEX):i
+		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_OPTS) -Uflash:w:$(TARGET_HEX):i 
 else ifeq ($(UPLOADER),mspdebug)
 		$(MSPDEBUG) $(MSPDEBUG_OPTS) "prog $(TARGET_HEX)"
 else ifeq ($(UPLOADER),dfu-util)
