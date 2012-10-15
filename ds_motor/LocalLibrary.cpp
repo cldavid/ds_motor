@@ -116,7 +116,7 @@ event_t event_list[]  = {
     {   BUILDTIME,    0,    NOT_USED,     10, print_datetime }    
 };
 
-const uint8_t   magic_num = BUILDTIME && 0xFF;
+const uint8_t   magic_num = BUILDTIME & 0xFF;
 uint8_t         magic;
 
 /* EEPROM MAP
@@ -131,13 +131,13 @@ void eeprom_read_config(void) {
 
     EEPROM.read_block(&magic, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
     if (magic != magic_num) {
-        println("Incorrect magic number found!");
+        println("Incorrect magic number found %u != %u", magic, magic_num);
         println("Updating EEPROM.");
 
         EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
         eeprom_write_event_list(epoch);
     } else {
-        println("Magic ok.");
+        println("Magic: %u ok.", magic);
         println("Reading config from EEPROM.");
         println("Magic address: %p", EEPROM_START_ADDR_MAPINIT);
         println("Event address: %p", EEPROM_START_ADDR_EVENTLIST);
@@ -212,13 +212,9 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
 
 void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
     if (debug || !rt_time) {
-        char humanTime[24] = "";
+        char humanTime[32] = "";
         Time.ctime(humanTime, sizeof(humanTime));
         println(humanTime);
-    }
-    if (!(time % 3600)) {
-        println("saving to eeprom ...");
-        eeprom_write_event_list(Time.getUnixTime());
     }
     return;
 }
@@ -248,6 +244,7 @@ void stop_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
 
 static void printSystemInfo(void) {
     size_t j = 0;
+    println("Buildtime %lu           ", BUILDTIME);
     println("M_LIST     size %d bytes", sizeof(M_LIST));
     println("cmd_list   size %d bytes", sizeof(cmd_list));
     println("CMD_LIST   size %d bytes", sizeof(CMD_LIST));
