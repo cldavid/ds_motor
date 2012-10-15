@@ -41,14 +41,6 @@
 #define SERIAL_INPUT_MAX    255
 
 typedef struct {
-    unsigned long   time;
-    unsigned long   rt_time;
-    unsigned int    pin;
-    unsigned long   next_event;
-    void          (*event_cb)(unsigned long time, unsigned int pin, unsigned long rt_time);
-} event_t;
-
-typedef struct {
 	char    buffer[SERIAL_INPUT_MAX+1];
 	size_t  len;
 	bool    ready;
@@ -63,16 +55,12 @@ typedef struct {
 void eeprom_read_config(void);
 void eeprom_write_event_list(unsigned long t);
 
-void println(const char *buffer);
-
 void get_motor_event_info(unsigned int motor);
 void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned long rt_time, unsigned long rp_time);
-
 void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
 void start_pump2(unsigned long time, unsigned int pin, unsigned long rt_time);
 void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
 void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
-void handleEvents(unsigned long cur_time, unsigned long prev_time);
-void processCommand(const char *recvString);
+void processCommand(unsigned long cur_time, const char *recvString);
 
 #endif

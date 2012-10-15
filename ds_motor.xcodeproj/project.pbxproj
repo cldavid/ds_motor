@@ -221,10 +221,12 @@
 		6797539D15C99606003F30DA /* Stepper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797539C15C99606003F30DA /* Stepper.cpp */; };
 		679753A115C99606003F30DA /* Supervisor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753A015C99606003F30DA /* Supervisor.cpp */; };
 		679753A515C99606003F30DA /* TimedAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753A415C99606003F30DA /* TimedAction.cpp */; };
-		679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753E815C9A0B8003F30DA /* dc_time.cpp */; };
+		679753EA15C9A0B8003F30DA /* time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679753E815C9A0B8003F30DA /* time.cpp */; };
 		679753EB15C9A615003F30DA /* ds_motor.pde in Sources */ = {isa = PBXBuildFile; fileRef = 6797508615C99600003F30DA /* ds_motor.pde */; };
+		67C09A9016278A7B004038A1 /* scheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C09A8F16278A7B004038A1 /* scheduler.cpp */; };
+		67C09A94162798B2004038A1 /* println.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C09A93162798B2004038A1 /* println.cpp */; };
 		67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508415C99600003F30DA /* main.cpp */; };
-		67E96243162374DF00067E14 /* dc_eeprom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E96242162374DF00067E14 /* dc_eeprom.cpp */; };
+		67E96243162374DF00067E14 /* eeprom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E96242162374DF00067E14 /* eeprom.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -741,10 +743,14 @@
 		679753C515C99607003F30DA /* References.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = References.txt; path = About/References.txt; sourceTree = "<group>"; };
 		679753C715C99607003F30DA /* reset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = reset.py; path = Utilities/reset.py; sourceTree = "<group>"; };
 		679753C815C99607003F30DA /* doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = doxyfile; path = Utilities/doxyfile; sourceTree = "<group>"; };
-		679753E815C9A0B8003F30DA /* dc_time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dc_time.cpp; sourceTree = "<group>"; };
-		679753E915C9A0B8003F30DA /* dc_time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc_time.h; sourceTree = "<group>"; };
-		67E96241162373CE00067E14 /* dc_eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dc_eeprom.h; sourceTree = "<group>"; };
-		67E96242162374DF00067E14 /* dc_eeprom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dc_eeprom.cpp; sourceTree = "<group>"; };
+		679753E815C9A0B8003F30DA /* time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time.cpp; sourceTree = "<group>"; };
+		679753E915C9A0B8003F30DA /* time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = time.h; sourceTree = "<group>"; };
+		67C09A8E16278A63004038A1 /* scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scheduler.h; sourceTree = "<group>"; };
+		67C09A8F16278A7B004038A1 /* scheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scheduler.cpp; sourceTree = "<group>"; };
+		67C09A92162798A6004038A1 /* println.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = println.h; sourceTree = "<group>"; };
+		67C09A93162798B2004038A1 /* println.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = println.cpp; sourceTree = "<group>"; };
+		67E96241162373CE00067E14 /* eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eeprom.h; sourceTree = "<group>"; };
+		67E96242162374DF00067E14 /* eeprom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eeprom.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -2167,6 +2173,8 @@
 		679753E615C9A0B8003F30DA /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67C09A911627985E004038A1 /* print */,
+				67C09A8C1627899B004038A1 /* scheduler */,
 				67E9623F1623738200067E14 /* EEPROM */,
 				679753E715C9A0B8003F30DA /* dc_time */,
 			);
@@ -2177,17 +2185,37 @@
 		679753E715C9A0B8003F30DA /* dc_time */ = {
 			isa = PBXGroup;
 			children = (
-				679753E815C9A0B8003F30DA /* dc_time.cpp */,
-				679753E915C9A0B8003F30DA /* dc_time.h */,
+				679753E815C9A0B8003F30DA /* time.cpp */,
+				679753E915C9A0B8003F30DA /* time.h */,
 			);
 			path = dc_time;
+			sourceTree = "<group>";
+		};
+		67C09A8C1627899B004038A1 /* scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				67C09A8E16278A63004038A1 /* scheduler.h */,
+				67C09A8F16278A7B004038A1 /* scheduler.cpp */,
+			);
+			name = scheduler;
+			path = ../Libraries/scheduler;
+			sourceTree = "<group>";
+		};
+		67C09A911627985E004038A1 /* print */ = {
+			isa = PBXGroup;
+			children = (
+				67C09A92162798A6004038A1 /* println.h */,
+				67C09A93162798B2004038A1 /* println.cpp */,
+			);
+			name = print;
+			path = ../Libraries/print;
 			sourceTree = "<group>";
 		};
 		67E9623F1623738200067E14 /* EEPROM */ = {
 			isa = PBXGroup;
 			children = (
-				67E96241162373CE00067E14 /* dc_eeprom.h */,
-				67E96242162374DF00067E14 /* dc_eeprom.cpp */,
+				67E96241162373CE00067E14 /* eeprom.h */,
+				67E96242162374DF00067E14 /* eeprom.cpp */,
 			);
 			name = EEPROM;
 			path = ../Libraries/EEPROM;
@@ -2579,9 +2607,11 @@
 				6797539D15C99606003F30DA /* Stepper.cpp in Sources */,
 				679753A115C99606003F30DA /* Supervisor.cpp in Sources */,
 				679753A515C99606003F30DA /* TimedAction.cpp in Sources */,
-				679753EA15C9A0B8003F30DA /* dc_time.cpp in Sources */,
-				67E96243162374DF00067E14 /* dc_eeprom.cpp in Sources */,
+				679753EA15C9A0B8003F30DA /* time.cpp in Sources */,
+				67E96243162374DF00067E14 /* eeprom.cpp in Sources */,
 				67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */,
+				67C09A9016278A7B004038A1 /* scheduler.cpp in Sources */,
+				67C09A94162798B2004038A1 /* println.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

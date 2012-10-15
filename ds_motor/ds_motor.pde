@@ -33,11 +33,11 @@
 #endif
 
 // Include application, user and local libraries
-#include <dc_time.h>
+#include <time.h>
+#include <scheduler.h>
 #include "LocalLibrary.h"
 
 ser_string_t 	s_input;
-unsigned long 	time;
 
 ///
 /// @brief	Setup
@@ -74,16 +74,16 @@ void loop() {
     unsigned long cur_time;
     static unsigned long prev_time;
     
-	time = millis();
+	unsigned long time = millis();
 	
-    dc_updateTime(time);
-    cur_time = dc_getUnixTime();
+    Time.updateTime(time);
+    cur_time = Time.getUnixTime();
 
-    handleEvents(cur_time, prev_time);
+    Scheduler.update(prev_time, cur_time);
     
 	if (s_ready) {
 		Serial.println("");
-		processCommand(s_buffer);
+		processCommand(cur_time, s_buffer);
 		s_len 	= 0;
 		s_ready = false;
 	}

@@ -20,9 +20,9 @@ ifneq ($(MAKECMDGOALS),build)
 ifneq ($(MAKECMDGOALS),make)
 ifneq ($(MAKECMDGOALS),document)
 ifneq ($(MAKECMDGOALS),clean)
-ifeq ($(AVRDUDE_PORT),)
-    $(error Serial port not available)
-endif
+#ifeq ($(AVRDUDE_PORT),)
+#    $(error Serial port not available)
+#endif
 endif
 endif
 endif
@@ -32,7 +32,7 @@ endif
 ifndef UPLOADER
     UPLOADER = avrdude
 endif
-
+BUILD_TIME:=`date +%s`
 
 # CORE libraries
 # ----------------------------------
@@ -245,7 +245,7 @@ $(OBJDIR)/libs/%.o: $(BUILD_APP_LIB_PATH)/%.c
 $(OBJDIR)/libs/%.o: $(USER_LIB_PATH)/%.cpp
 	@echo "3-" $<
 	mkdir -p $(dir $@)
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
+	$(CC) -c -Wall -Werror -Wextra $(CPPFLAGS) $(CFLAGS) $< -o $@
     
 $(OBJDIR)/libs/%.o: $(USER_LIB_PATH)/%.c
 	@echo "4-" $<
@@ -266,7 +266,7 @@ $(OBJDIR)/%.o: %.cc
 
 $(OBJDIR)/%.o: 	%.cpp
 	@echo "7-" $<
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
+	$(CXX) -c -Wall -Werror -Wextra $(CPPFLAGS) $(CXXFLAGS) -DBUILDTIME=$(BUILD_TIME) $< -o $@
 
 $(OBJDIR)/%.o: %.S
 	@echo "8-"
@@ -479,7 +479,8 @@ endif
 # Rules
 # ----------------------------------
 #
-all: 		clean build upload serial
+#all: 		clean build upload serial
+all:    clean build
 		@echo " ---- all ---- "
 
 build: 		clean compile
