@@ -25,6 +25,11 @@
 #include "scheduler.h"
 #include "println.h"
 
+static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
+static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time);
+static void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
+static void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
+
 #define P_UNKNOWN   255
 #define P_MOTOR_1   9
 #define P_MOTOR_2   10
@@ -132,28 +137,26 @@ void eeprom_read_config(void) {
     EEPROM.read_block(&magic, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
     if (magic != magic_num) {
         println("Incorrect magic number found %u != %u", magic, magic_num);
-        println("Updating EEPROM.");
-
-        EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
-        eeprom_write_event_list(epoch);
+        println("Loading default config!");
     } else {
-        println("Magic: %u ok.", magic);
+        println("Magic: %d ok.", magic);
         println("Reading config from EEPROM.");
         println("Magic address: %p", EEPROM_START_ADDR_MAPINIT);
         println("Event address: %p", EEPROM_START_ADDR_EVENTLIST);
         println("Epoch address: %p", EEPROM_START_ADDR_LASTSAVE);
         
-        EEPROM.read_block(&event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
+        EEPROM.read_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
         EEPROM.read_block(&epoch, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
     }
     /* Skip default events that are programmed at time 0 */ 
     Time.setUnixTime(epoch);
-    
     Scheduler.set_event_list(event_list, sizeof(event_list));
 }
 
 void eeprom_write_event_list(unsigned long t) {
-    EEPROM.write_block(&event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
+    println("Updating EEPROM.");
+    EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic_num));
+    EEPROM.write_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
     EEPROM.write_block(&t, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
 }
 
@@ -210,17 +213,18 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
     return;
 }
 
-void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
+static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
     if (debug || !rt_time) {
-        char humanTime[32] = "";
+        char humanTime[24] = "";
+        memset(humanTime, 0, sizeof(humanTime));
         Time.ctime(humanTime, sizeof(humanTime));
         println(humanTime);
     }
     return;
 }
 
-void start_pump2(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("[BLOCKING]Time: %lu Starting motor on pin %u for %u ms", time, pin, rt_time);
+static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
+    println("[BLOCKING]Time: %lu Starting motor on pin %u for %lu ms", time, pin, rt_time);
     
     digitalWrite(pin, HIGH);
     delay(rt_time);
@@ -228,32 +232,31 @@ void start_pump2(unsigned long time, unsigned int pin, unsigned long rt_time) {
     return;
 }
 
-void start_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu Starting motor on pin %u for %u ms", time, pin, rt_time);
+static void start_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
+    println("Time: %lu Starting motor on pin %u for %lu ms", time, pin, rt_time);
     
     digitalWrite(pin, HIGH);
     return;
 }
 
-void stop_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu Stoping motor on pin %u for %u ms", time, pin, rt_time);
+static void stop_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
+    println("Time: %lu Stoping motor on pin %u for %lu ms", time, pin, rt_time);
 
     digitalWrite(pin, LOW);
     return;
 }
 
-static void printSystemInfo(void) {
-    size_t j = 0;
-    println("Buildtime %lu           ", BUILDTIME);
-    println("M_LIST     size %d bytes", sizeof(M_LIST));
-    println("cmd_list   size %d bytes", sizeof(cmd_list));
-    println("CMD_LIST   size %d bytes", sizeof(CMD_LIST));
-    println("event_list size %d bytes", sizeof(event_list)); 
+void printSystemInfo(void) {
+    println("Build         \ttime %lu s", BUILDTIME);
+    println("M_LIST        \tsize %d bytes", sizeof(M_LIST));
+    println("cmd_list      \tsize %d bytes", sizeof(cmd_list));
+    println("CMD_LIST      \tsize %d bytes", sizeof(CMD_LIST));
+    println("event_list    \tsize %d bytes", sizeof(event_list)); 
     
-    println("start_pump         addr %p", start_pump);
-    println("stop_pump          addr %p", stop_pump);
-    println("print_datetime     addr %p", print_datetime);
-    println("start_pump2        addr %p", start_pump2);
+    println("start_pump    \taddr %p", start_pump);
+    println("stop_pump     \taddr %p", stop_pump);
+    println("print_datetime\taddr %p", print_datetime);
+    println("drive_pump    \taddr %p", drive_pump);
     Scheduler.print_events();
     return;
 }
@@ -293,7 +296,7 @@ void processCommand(unsigned long cur_time, const char *recvString) {
             break;
             
         case CMD_GET_UNIXTIME:
-       		Serial.println(Time.getUnixTime());     
+       		println("%lu", cur_time);     
             break;
             
         case CMD_GET_DATE:
@@ -302,23 +305,23 @@ void processCommand(unsigned long cur_time, const char *recvString) {
 
         case CMD_MOTOR1:
             pin = P_MOTOR_1;
-            t   = atoi(arg);
+            t   = strtoul(arg, NULL, 10);
             
-            start_pump2(cur_time, pin, t);
+            drive_pump(cur_time, pin, t);
             break;
             
         case CMD_MOTOR2:
             pin = P_MOTOR_2;
-            t   = atoi(arg);
+            t   = strtoul(arg, NULL, 10);
             
-            start_pump2(cur_time, pin, t);
+            drive_pump(cur_time, pin, t);
             break;
             
         case CMD_MOTOR3:
             pin = P_MOTOR_3;
-            t   = atoi(arg);
+            t   = strtoul(arg, NULL, 10);
 
-            start_pump2(cur_time, pin, t);
+            drive_pump(cur_time, pin, t);
             break;
         
         case CMD_SET_MOTOR1:

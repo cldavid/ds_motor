@@ -30,7 +30,7 @@ ifndef AVRDUDE_CONF
     AVRDUDE_CONF      = $(AVRDUDE_PATH)/avr/etc/avrdude.conf
 endif
 ifndef AVRDUDE_COM_OPTS
-    AVRDUDE_COM_OPTS  = -q -V -F -p$(MCU) -C$(AVRDUDE_CONF)
+    AVRDUDE_COM_OPTS  = -q -p$(MCU) -C$(AVRDUDE_CONF)
 endif
 ifndef AVRDUDE_OPTS
     AVRDUDE_OPTS      = -c$(AVRDUDE_PROGRAMMER) -b$(AVRDUDE_BAUDRATE) -P$(AVRDUDE_PORT)

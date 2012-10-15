@@ -516,7 +516,7 @@ upload:		reset raw_upload
 raw_upload:
 		@echo " ---- upload ---- "
 ifeq ($(UPLOADER),avrdude)
-		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_OPTS) -Uflash:w:$(TARGET_HEX):i 
+		$(AVRDUDE) $(AVRDUDE_COM_OPTS) $(AVRDUDE_OPTS) -Uflash:w:$(TARGET_HEX):i
 else ifeq ($(UPLOADER),mspdebug)
 		$(MSPDEBUG) $(MSPDEBUG_OPTS) "prog $(TARGET_HEX)"
 else ifeq ($(UPLOADER),dfu-util)
