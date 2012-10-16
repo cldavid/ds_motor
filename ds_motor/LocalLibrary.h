@@ -37,8 +37,8 @@
 #define ds_motor_LocalLibrary_h
 #include <stddef.h>
 
-#define SERIAL_BAUD_RATE    9600
-#define SERIAL_INPUT_MAX    255
+#define SERIAL_BAUD_RATE    115200
+#define SERIAL_INPUT_MAX    60
 
 typedef struct {
 	char    buffer[SERIAL_INPUT_MAX+1];

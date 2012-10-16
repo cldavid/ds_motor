@@ -35,8 +35,6 @@ static void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
 #define P_MOTOR_2   10
 #define P_MOTOR_3   11
 
-//extern unsigned long time;
-
 enum M_LIST {
     MOTOR_1 = 1,
     MOTOR_2,
@@ -215,16 +213,13 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
 
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
     if (debug || !rt_time) {
-        char humanTime[24] = "";
-        memset(humanTime, 0, sizeof(humanTime));
-        Time.ctime(humanTime, sizeof(humanTime));
-        println(humanTime);
+        println(Time.getHumanTime());
     }
     return;
 }
 
 static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("[BLOCKING]Time: %lu Starting motor on pin %u for %lu ms", time, pin, rt_time);
+    println("Time: %lu driving motor on pin %u for %lu ms", time, pin, rt_time);
     
     digitalWrite(pin, HIGH);
     delay(rt_time);
@@ -233,37 +228,37 @@ static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_ti
 }
 
 static void start_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu Starting motor on pin %u for %lu ms", time, pin, rt_time);
+    println("Time: %lu motor started on pin %u for %lu ms", time, pin, rt_time);
     
     digitalWrite(pin, HIGH);
     return;
 }
 
 static void stop_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu Stoping motor on pin %u for %lu ms", time, pin, rt_time);
+    println("Time: %lu motor stopped on pin %u for %lu ms", time, pin, rt_time);
 
     digitalWrite(pin, LOW);
     return;
 }
 
 void printSystemInfo(void) {
-    println("Build         \ttime %lu s", BUILDTIME);
-    println("M_LIST        \tsize %d bytes", sizeof(M_LIST));
-    println("cmd_list      \tsize %d bytes", sizeof(cmd_list));
-    println("CMD_LIST      \tsize %d bytes", sizeof(CMD_LIST));
-    println("event_list    \tsize %d bytes", sizeof(event_list)); 
+    println("Build     \t\ttime %lu s", BUILDTIME);
+    println("M_LIST    \t\tsize %d bytes", sizeof(M_LIST));
+    println("cmd_list  \t\tsize %d bytes", sizeof(cmd_list));
+    println("CMD_LIST  \t\tsize %d bytes", sizeof(CMD_LIST));
+    println("event_list\t\tsize %d bytes", sizeof(event_list)); 
     
-    println("start_pump    \taddr %p", start_pump);
-    println("stop_pump     \taddr %p", stop_pump);
-    println("print_datetime\taddr %p", print_datetime);
-    println("drive_pump    \taddr %p", drive_pump);
+    println("start_pump \t\taddr %p", start_pump);
+    println("stop_pump  \t\taddr %p", stop_pump);
+    println("print_datetime     \taddr %p", print_datetime);
+    println("drive_pump  \t\taddr %p", drive_pump);
     Scheduler.print_events();
     return;
 }
 
 void processCommand(unsigned long cur_time, const char *recvString) {
-	char            cmd[S_WIDTH]    = "";
-	char            arg[S_WIDTH]    = "";
+	char            cmd[21]       = "";
+	char            arg[41]       = "";
     unsigned long   start_time      = 0;
     unsigned long   rt_time         = 0;
     unsigned long   rp_time         = 0;
@@ -273,7 +268,7 @@ void processCommand(unsigned long cur_time, const char *recvString) {
     size_t          j               = 0;
         
     /* S_WIDTH = 80. 80 / 2 = 40. 40 - 1 (\0) = 39 */
-	sscanf(recvString, "%s %39[^\n]", cmd, arg);
+	sscanf(recvString, "%20s %40[^\n]", cmd, arg);
     
     for (i = 0; cmd_list[i] != NULL; i++) {
         if (!strcmp(cmd_list[i], cmd)) {

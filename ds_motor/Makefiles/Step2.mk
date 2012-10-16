@@ -12,7 +12,6 @@
 # See About folder
 # 
 
-
 include $(MAKEFILE_PATH)/Avrdude.mk
 
 ifneq ($(MAKECMDGOALS),boards)
@@ -194,7 +193,9 @@ SYS_OBJS     += $(wildcard $(patsubst %,%/*.o,$(BUILD_APP_LIBS))) # */
 SYS_OBJS     += $(wildcard $(patsubst %,%/*.o,$(USER_LIBS))) # */
 
 CPPFLAGS      = -$(MCU_FLAG_NAME)=$(MCU) -DF_CPU=$(F_CPU) -I$(CORE_LIB_PATH) \
-			$(SYS_INCLUDES) -g -Os -w -Wall -ffunction-sections -fdata-sections $(EXTRA_CPPFLAGS)
+			$(SYS_INCLUDES) -g -Os -w -Wall -Wstack-protector \
+            -fconserve-stack -fstack-protector-all -fstack-usage -fdump-tree-optimized \
+            -ffunction-sections -fdata-sections $(EXTRA_CPPFLAGS)
 
 ifdef USE_GNU99
 CFLAGS        = -std=gnu99
@@ -387,7 +388,7 @@ SERIAL_PORT = $(firstword $(wildcard $(BOARD_PORT)))
 endif
 
 ifndef SERIAL_BAUDRATE
-SERIAL_BAUDRATE = 9600
+SERIAL_BAUDRATE = 115200
 endif
 
 ifndef SERIAL_COMMAND
@@ -613,8 +614,6 @@ boards:
 		@echo "---- end ---- "
 
 
-document:	document0 document1 document2 document3
-
-		
+document:	document0 document1 document2 document3		
                 
 .PHONY:	all clean depends upload raw_upload reset serial show_boards headers size document

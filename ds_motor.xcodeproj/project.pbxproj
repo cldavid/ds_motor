@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67084074162DE72C00B8E296 /* MemoryFree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67084073162DE72C00B8E296 /* MemoryFree.cpp */; };
 		6797508815C99600003F30DA /* LocalLibrary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797508715C99600003F30DA /* LocalLibrary.cpp */; };
 		6797508B15C99600003F30DA /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6797508A15C99600003F30DA /* Makefile */; };
 		6797509415C99601003F30DA /* CDC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6797509315C99601003F30DA /* CDC.cpp */; };
@@ -230,6 +231,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		67084072162DE6F800B8E296 /* MemoryFree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryFree.h; sourceTree = "<group>"; };
+		67084073162DE72C00B8E296 /* MemoryFree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryFree.cpp; sourceTree = "<group>"; };
 		6797507815C99600003F30DA /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		6797508415C99600003F30DA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6797508615C99600003F30DA /* ds_motor.pde */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = ds_motor.pde; sourceTree = "<group>"; };
@@ -754,6 +757,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		67084070162DE6A300B8E296 /* MemoryFree */ = {
+			isa = PBXGroup;
+			children = (
+				67084072162DE6F800B8E296 /* MemoryFree.h */,
+				67084073162DE72C00B8E296 /* MemoryFree.cpp */,
+			);
+			name = MemoryFree;
+			path = ../Libraries/MemoryFree;
+			sourceTree = "<group>";
+		};
 		6797506F15C99600003F30DA = {
 			isa = PBXGroup;
 			children = (
@@ -2173,6 +2186,7 @@
 		679753E615C9A0B8003F30DA /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67084070162DE6A300B8E296 /* MemoryFree */,
 				67C09A911627985E004038A1 /* print */,
 				67C09A8C1627899B004038A1 /* scheduler */,
 				67E9623F1623738200067E14 /* EEPROM */,
@@ -2612,6 +2626,7 @@
 				67CD2DBF15C9CF7A00BD6C35 /* main.cpp in Sources */,
 				67C09A9016278A7B004038A1 /* scheduler.cpp in Sources */,
 				67C09A94162798B2004038A1 /* println.cpp in Sources */,
+				67084074162DE72C00B8E296 /* MemoryFree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
