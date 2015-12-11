@@ -18,7 +18,7 @@
 #
 PLATFORM         := Arduino 
 PLATFORM_TAG     := ARDUINO=101
-APPLICATION_PATH := /Applications/Arduino.app/Contents/Resources/Java
+APPLICATION_PATH := /Applications/Arduino.app/Contents/Java
 
 #APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/avr/bin
 APP_TOOLS_PATH   :=  /opt/local/bin

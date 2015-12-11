@@ -1,11 +1,43 @@
 #
 # embedXcode
 # ----------------------------------
-# Embedded Computing on Xcode 4.3
+# Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2012
-# Licence CC = BY NC SA
+# Copyright © Rei VILO, 2010-2015
+# All rights reserved
+# http://embedxcode.weebly.com
 #
+# Last update: Jul 31, 2015 release 300
+AVRDUDE_NO_SERIAL_PORT = 1
+
+# Libraries
+# ----------------------------------
+# Declare application Arduino/chipKIT/Digispark/Energia/Maple/Microduino/Teensy/Wiring
+# and user's libraries used 
+# Short-listing libraries speeds-up building
+# Typing = 0 takes none (default for application and user)
+# Otherwise, leaving empty considers all (default for local)
+
+# List application Arduino/chipKIT/Digispark/Energia/Maple/Microduino/Teensy/Wiring libraries here
+# default = 0 = none
+#
+# ARDUINO : AVR = EEPROM HID SoftwareSerial SPI Wire 
+# ARDUINO = Bridge Esplora Ethernet Firmata GSM 
+#	LiquidCrystal Robot_Control 
+#
+APP_LIBS_LIST = 0
+
+# List user's libraries here 
+# default = 0 = none
+#
+#
+USER_LIBS_LIST = EEPROM dc_time scheduler print
+
+# List core, application and user's libraries to be excluded
+# For example, WiFi may crash on Arduino 1.0.2, Esplora on Arduino 1.0.3, Firmata on Teensy 3.0,
+#   OneWire on MPIDE 0023, HardwareSerial may conflict with MarlinSerial
+#
+#EXCLUDE_LIBS = Firmata WiFi Esplora OneWire Robot_Control Robot_Control/utility Robot_Motor
 
 
 # Parameters
@@ -21,44 +53,35 @@
 # BOARD_PORT is optional
 # If not defined, BOARD_PORT = /dev/tty.usb* (default)
 #
-#BOARD_PORT = /dev/tty.usbmodem*
+BOARD_PORT = /dev/tty.usbmodem*
 
-# Xcode takes SKETCHBOOK_DIR from preferences.txt 
+# Xcode takes SKETCHBOOK_DIR from preferences.txt
 # If not defined, each IDE has its own SKETCHBOOK_DIR (default)
 # To share the same SKETCHBOOK_DIR along all IDEs, define
-# 
+#
 #SKETCHBOOK_DIR =
 
+# SERIAL_BAUDRATE for the serial console, 9600 by default
+# Uncomment and specify another speed
+#
+#SERIAL_BAUDRATE = 115200
 
-# Libraries
+
+# Miscellaneous
 # ----------------------------------
-# Declare application Arduino/chipKIT/Wiring/Energia/Maple and users libraries used 
-# Short-listing libraries speeds-up building
-# Typing = 0 takes none
-# Otherwise, leaving empty considers all (default)
-
-# List Arduino/chipKIT/Wiring/Energia/Maple libraries here 
+# Manage path with space in the name
 #
-#APP_LIBS_LIST = Wire Wire/utility EEPROM Ethernet Ethernet/utility \
-	SPI Firmata LiquidCrystal Matrix Sprite SD SD/utility Servo SoftwareSerial Stepper 
+CURRENT_DIR   := $(shell pwd)
+CURRENT_DIR   := $(shell echo '$(CURRENT_DIR)' | sed 's/ /\\\ /g')
 
-APP_LIBS_LIST = 0
-
-# List users libraries here 
+# C-compliant project name
 #
-#USER_LIBS_LIST = I2C_20x4 I2C_Clock I2C_Stepper \
-	I2C_Thermometer I2C_Pressure I2C_Humidity I2C_Climate \
-	I2C_Accelerometer I2C_Magnetometer I2C_Compass I2C_Gyroscope I2C_IMU \
-	I2C_Potentiometer I2C_Height_IOs \
-	I2C_RGBC_Reader I2C_RGB_LED \
-	NewSoftSerial I2C_Serial Serial_LCD \
-	MatrixMath MsTimer2 Serial_GPS pic32_RTC \
-	DWIFIcK DWIFIcK/Utility 
+PROJECT_NAME_AS_IDENTIFIER = dosing_unit
+SKETCH_EXTENSION = pde
 
-USER_LIBS_LIST = EEPROM dc_time scheduler print
-
-
-MAKEFILE_PATH  = $(CURDIR)/Makefiles
-UTILITIES_PATH = $(CURDIR)/Utilities
+MAKEFILE_PATH  = $(CURRENT_DIR)/Makefiles
+UTILITIES_PATH = $(CURRENT_DIR)/Utilities
 
 include $(MAKEFILE_PATH)/Step1.mk
+
+

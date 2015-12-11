@@ -18,7 +18,7 @@
 #
 PLATFORM         := Arduino 
 PLATFORM_TAG     := ARDUINO=23
-APPLICATION_PATH := /Applications/Arduino.app/Contents/Resources/Java
+APPLICATION_PATH := /Applications/Arduino.app/Contents/Java
 
 #APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/avr/bin
 APP_TOOLS_PATH   :=  /opt/local/bin/
@@ -62,7 +62,7 @@ BOARD    = $(call PARSE_BOARD,$(BOARD_TAG),board)
 
 MCU_FLAG_NAME  = mmcu
 EXTRA_LDFLAGS  = 
-EXTRA_CPPFLAGS = -D$(PLATFORM_TAG)
+EXTRA_CPPFLAGS = -D$(PLATFORM_TAG) -DBUILDTIME=$(EPOCH)
 
 
 
