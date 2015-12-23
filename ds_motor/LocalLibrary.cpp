@@ -24,6 +24,7 @@
 #include "eeprom.h"
 #include "scheduler.h"
 #include "println.h"
+#include <Adafruit_MotorShield.h>
 
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
 static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time);

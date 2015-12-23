@@ -23,7 +23,7 @@ APPLICATION_PATH := /Applications/Arduino.app/Contents/Java
 #APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/avr/bin
 APP_TOOLS_PATH   :=  /opt/local/bin/
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/arduino/cores/Arduino
-APP_LIB_PATH     := $(APPLICATION_PATH)/libraries
+APP_LIB_PATH     := /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/libraries
 BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/boards.txt
 
 # Sketchbook/Libraries path
