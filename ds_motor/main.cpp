@@ -8,7 +8,7 @@
 // Project ds_motor
 //
 // Created by David Cluytens, 01/08/12 18:51
-// __MyCompanyName__
+// Cluytens.net
 //	
 //
 // Copyright © David Cluytens, 2012

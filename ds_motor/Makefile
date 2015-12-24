@@ -48,7 +48,7 @@ USER_LIBS_LIST = EEPROM dc_time scheduler print
 # BOARD_TAG is required
 # If not defined, error BOARD_TAG not defined
 #
-#BOARD_TAG  = mega2560
+BOARD_TAG  = uno
 
 # BOARD_PORT is optional
 # If not defined, BOARD_PORT = /dev/tty.usb* (default)

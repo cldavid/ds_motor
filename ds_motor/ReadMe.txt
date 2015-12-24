@@ -6,7 +6,7 @@
 
   Project ds_motor
   Created by David Cluytens on 01/08/12
-  Copyright © 2012 __MyCompanyName__
+  Copyright © 2012 Cluytens.net
   Licence CC = BY SA NC
 
 

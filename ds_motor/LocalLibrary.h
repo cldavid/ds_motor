@@ -7,7 +7,7 @@
 /// @n @a	Developed with [embedXcode](http://embedXcode.weebly.com)
 /// 
 /// @author	David Cluytens
-/// @author	__MyCompanyName__
+/// @author	Cluytens.net
 /// @date	01/08/12 18:51
 /// @version	<#version#>
 /// 
