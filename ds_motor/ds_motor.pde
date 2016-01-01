@@ -18,19 +18,7 @@
 
 
 // Core library - IDE-based
-#if defined(WIRING) // Wiring specific
-#include "Wiring.h"
-#elif defined(MAPLE_IDE) // Maple specific
-#include "WProgram.h"   
-#elif defined(MPIDE) // chipKIT specific
-#include "WProgram.h"
-#elif defined(ENERGIA) // LaunchPad specific
-#include "Energia.h"
-#elif defined(ARDUINO) && (ARDUINO >= 100) // Arduino 1.0 specific
 #include "Arduino.h"
-#elif defined(ARDUINO) && (ARDUINO < 100) // Arduino 23 specific
-#include "WProgram.h"
-#endif
 
 // Include application, user and local libraries
 #include <time.h>
@@ -49,22 +37,22 @@ void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
 	Serial.begin(SERIAL_BAUD_RATE);
-    shield_pump_init();
-    pinMode(8, OUTPUT); 
-    pinMode(9, OUTPUT); 
-    pinMode(10, OUTPUT); 
-    pinMode(11, OUTPUT); 
-    pinMode(12, OUTPUT); 
-    pinMode(13, OUTPUT);
-    digitalWrite(8, LOW);
-    digitalWrite(9, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
-        
-    /* Read Event List From EEPROM */
-    eeprom_read_config();
+	shield_pump_init();
+	pinMode(8, OUTPUT); 
+	pinMode(9, OUTPUT); 
+	pinMode(10, OUTPUT); 
+	pinMode(11, OUTPUT); 
+	pinMode(12, OUTPUT); 
+	pinMode(13, OUTPUT);
+	digitalWrite(8, LOW);
+	digitalWrite(9, LOW);
+	digitalWrite(10, LOW);
+	digitalWrite(11, LOW);
+	digitalWrite(12, LOW);
+	digitalWrite(13, LOW);
+
+	/* Read Event List From EEPROM */
+	eeprom_read_config();
 }
 
 ///
@@ -73,23 +61,23 @@ void setup() {
 ///
 // Add loop code 
 void loop() {
-    unsigned long cur_time;
-    static unsigned long prev_time;
-    
-	unsigned long time = millis();
-	
-    Time.updateTime(time);
-    cur_time = Time.getUnixTime();
+	unsigned long cur_time;
+	static unsigned long prev_time;
 
-    Scheduler.update(prev_time, cur_time);
-    
+	unsigned long time = millis();
+
+	Time.updateTime(time);
+	cur_time = Time.getUnixTime();
+
+	Scheduler.update(prev_time, cur_time);
+
 	if (s_ready) {
 		Serial.println("");
 		processCommand(cur_time, s_buffer);
 		s_len 	= 0;
 		s_ready = false;
 	}
-    prev_time = cur_time;
+	prev_time = cur_time;
 }
 
 void serialEvent() {
