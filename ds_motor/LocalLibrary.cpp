@@ -235,7 +235,6 @@ void processCommand(unsigned long cur_time, const char *recvString) {
     unsigned int    pin             = M_PUMP_E;
     unsigned long   t               = 0;
     size_t          i               = 0;
-    size_t          j               = 0;
         
     /* S_WIDTH = 80. 80 / 2 = 40. 40 - 1 (\0) = 39 */
 	sscanf(recvString, "%20s %40[^\n]", cmd, arg);
