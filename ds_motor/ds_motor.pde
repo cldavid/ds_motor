@@ -36,6 +36,7 @@
 #include <time.h>
 #include <scheduler.h>
 #include "LocalLibrary.h"
+#include "motor.hpp"
 
 ser_string_t 	s_input;
 
@@ -47,7 +48,8 @@ ser_string_t 	s_input;
 void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
-	Serial.begin(SERIAL_BAUD_RATE); 
+	Serial.begin(SERIAL_BAUD_RATE);
+    shield_pump_init();
     pinMode(8, OUTPUT); 
     pinMode(9, OUTPUT); 
     pinMode(10, OUTPUT); 

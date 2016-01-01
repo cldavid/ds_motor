@@ -14,7 +14,7 @@
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *myPump[NO_PUMPS] = {AFMS.getMotor(1), AFMS.getMotor(2), AFMS.getMotor(3)};
 
-void pump_init(void) {
+void shield_pump_init(void) {
     AFMS.begin();
     
     for (int i = 0; i < NO_PUMPS; i++) {

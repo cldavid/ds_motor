@@ -11,12 +11,13 @@
 
 #include <stdio.h>
 
-#define PUMP_1  0
-#define PUMP_2  1
-#define PUMP_3  2
-#define PUMP_4  3
+#define M_PUMP_1  0
+#define M_PUMP_2  1
+#define M_PUMP_3  2
+#define M_PUMP_4  3
+#define M_PUMP_E  255
 
-void pump_init(void);
+void shield_pump_init(void);
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time);
 void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_time);
 void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_time);

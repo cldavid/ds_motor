@@ -27,14 +27,6 @@
 #include "motor.hpp"
 
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
-static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time);
-static void start_pump(unsigned long time, unsigned int, unsigned long rt_time);
-static void stop_pump(unsigned long time, unsigned int, unsigned long rt_time);
-
-#define P_UNKNOWN   255
-#define P_MOTOR_1   9
-#define P_MOTOR_2   10
-#define P_MOTOR_3   11
 
 enum M_LIST {
     MOTOR_1 = 1,
@@ -108,14 +100,14 @@ unsigned int debug  =   0;
  */
 
 event_t event_list[]  = { 
-    {           0,    0,    P_MOTOR_1, T_DAY, start_pump     },
-    {           0,    0,    P_MOTOR_1, T_DAY, stop_pump      },
+    {           0,    0,    M_PUMP_1, T_DAY, shield_start_pump     },
+    {           0,    0,    M_PUMP_1, T_DAY, shield_stop_pump      },
     
-    {           0,    0,    P_MOTOR_2, T_DAY, start_pump     },
-    {           0,    0,    P_MOTOR_2, T_DAY, stop_pump      },
+    {           0,    0,    M_PUMP_2, T_DAY, shield_start_pump     },
+    {           0,    0,    M_PUMP_2, T_DAY, shield_stop_pump      },
     
-    {           0,    0,    P_MOTOR_3, T_DAY, start_pump     },
-    {           0,    0,    P_MOTOR_3, T_DAY, stop_pump      },
+    {           0,    0,    M_PUMP_2, T_DAY, shield_start_pump     },
+    {           0,    0,    M_PUMP_3, T_DAY, shield_stop_pump      },
     
     {   BUILDTIME,    0,    NOT_USED,     10, print_datetime }    
 };
@@ -219,29 +211,6 @@ static void print_datetime(unsigned long time, unsigned int pin, unsigned long r
     return;
 }
 
-static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu driving motor on pin %u for %lu ms", time, pin, rt_time);
-    
-    digitalWrite(pin, HIGH);
-    delay(rt_time);
-    digitalWrite(pin, LOW);
-    return;
-}
-
-static void start_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu motor started on pin %u for %lu ms", time, pin, rt_time);
-    
-    digitalWrite(pin, HIGH);
-    return;
-}
-
-static void stop_pump(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    println("Time: %lu motor stopped on pin %u for %lu ms", time, pin, rt_time);
-
-    digitalWrite(pin, LOW);
-    return;
-}
-
 void printSystemInfo(void) {
     println("Build     \t\ttime %lu s", BUILDTIME);
     println("M_LIST    \t\tsize %d bytes", sizeof(M_LIST));
@@ -249,10 +218,10 @@ void printSystemInfo(void) {
     println("CMD_LIST  \t\tsize %d bytes", sizeof(CMD_LIST));
     println("event_list\t\tsize %d bytes", sizeof(event_list)); 
     
-    println("start_pump \t\taddr %p", start_pump);
-    println("stop_pump  \t\taddr %p", stop_pump);
+    println("start_pump \t\taddr %p", shield_start_pump);
+    println("stop_pump  \t\taddr %p", shield_stop_pump);
     println("print_datetime     \taddr %p", print_datetime);
-    println("drive_pump  \t\taddr %p", drive_pump);
+    println("drive_pump  \t\taddr %p", shield_drive_pump);
     Scheduler.print_events();
     return;
 }
@@ -263,7 +232,7 @@ void processCommand(unsigned long cur_time, const char *recvString) {
     unsigned long   start_time      = 0;
     unsigned long   rt_time         = 0;
     unsigned long   rp_time         = 0;
-    unsigned int    pin             = P_UNKNOWN;
+    unsigned int    pin             = M_PUMP_E;
     unsigned long   t               = 0;
     size_t          i               = 0;
     size_t          j               = 0;
@@ -300,24 +269,24 @@ void processCommand(unsigned long cur_time, const char *recvString) {
             break;
 
         case CMD_MOTOR1:
-            pin = P_MOTOR_1;
+            pin = M_PUMP_1;
             t   = strtoul(arg, NULL, 10);
             
-            drive_pump(cur_time, pin, t);
+            shield_drive_pump(cur_time, pin, t);
             break;
             
         case CMD_MOTOR2:
-            pin = P_MOTOR_2;
+            pin = M_PUMP_2;
             t   = strtoul(arg, NULL, 10);
             
-            drive_pump(cur_time, pin, t);
+            shield_drive_pump(cur_time, pin, t);
             break;
             
         case CMD_MOTOR3:
-            pin = P_MOTOR_3;
+            pin = M_PUMP_3;
             t   = strtoul(arg, NULL, 10);
 
-            drive_shield_pump(cur_time, pin, t);
+            shield_drive_pump(cur_time, pin, t);
             break;
         
         case CMD_SET_MOTOR1:
