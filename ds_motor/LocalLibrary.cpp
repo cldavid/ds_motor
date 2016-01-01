@@ -24,7 +24,7 @@
 #include "eeprom.h"
 #include "scheduler.h"
 #include "println.h"
-#include <Adafruit_MotorShield.h>
+#include "motor.hpp"
 
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
 static void drive_pump(unsigned long time, unsigned int pin, unsigned long rt_time);
@@ -317,7 +317,7 @@ void processCommand(unsigned long cur_time, const char *recvString) {
             pin = P_MOTOR_3;
             t   = strtoul(arg, NULL, 10);
 
-            drive_pump(cur_time, pin, t);
+            drive_shield_pump(cur_time, pin, t);
             break;
         
         case CMD_SET_MOTOR1:

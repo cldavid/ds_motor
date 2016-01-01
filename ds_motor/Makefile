@@ -8,7 +8,7 @@
 # http://embedxcode.weebly.com
 #
 # Last update: Jul 31, 2015 release 300
-AVRDUDE_NO_SERIAL_PORT = 1
+AVRDUDE_NO_SERIAL_PORT = 0
 
 # Libraries
 # ----------------------------------

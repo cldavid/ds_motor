@@ -15,6 +15,7 @@
 		672753E915C9A0B8003F30DA /* time.h in Sources */ = {isa = PBXBuildFile; fileRef = 679753E915C9A0B8003F30DA /* time.h */; };
 		67284072162DE6F800B8E296 /* MemoryFree.h in Sources */ = {isa = PBXBuildFile; fileRef = 67084072162DE6F800B8E296 /* MemoryFree.h */; };
 		67296241162373CE00067E14 /* eeprom.h in Sources */ = {isa = PBXBuildFile; fileRef = 67E96241162373CE00067E14 /* eeprom.h */; };
+		6782B4D51C355E7700B1E5F9 /* motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6782B4D31C355E7700B1E5F9 /* motor.cpp */; };
 		6791908C1C2B3DAC00A7522E /* Adafruit_MotorShield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679190751C2B3DAC00A7522E /* Adafruit_MotorShield.cpp */; };
 		6791908D1C2B3DAC00A7522E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 679190871C2B3DAC00A7522E /* README.md */; };
 		6791908E1C2B3DAC00A7522E /* Adafruit_PWMServoDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 679190891C2B3DAC00A7522E /* Adafruit_PWMServoDriver.cpp */; };
@@ -267,6 +268,8 @@
 		67084072162DE6F800B8E296 /* MemoryFree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryFree.h; sourceTree = "<group>"; };
 		67084073162DE72C00B8E296 /* MemoryFree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryFree.cpp; sourceTree = "<group>"; };
 		6720BB911C1B908A00718818 /* Makefiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Makefiles; sourceTree = "<group>"; };
+		6782B4D31C355E7700B1E5F9 /* motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = motor.cpp; sourceTree = "<group>"; };
+		6782B4D41C355E7700B1E5F9 /* motor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = motor.hpp; sourceTree = "<group>"; };
 		679190751C2B3DAC00A7522E /* Adafruit_MotorShield.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Adafruit_MotorShield.cpp; sourceTree = "<group>"; };
 		679190761C2B3DAC00A7522E /* Adafruit_MotorShield.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Adafruit_MotorShield.h; sourceTree = "<group>"; };
 		679190791C2B3DAC00A7522E /* Accel_ConstantSpeed.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Accel_ConstantSpeed.ino; sourceTree = "<group>"; };
@@ -969,6 +972,8 @@
 				679190911C2B47BB00A7522E /* Arduino */,
 				6720BB911C1B908A00718818 /* Makefiles */,
 				6797508415C99600003F30DA /* main.cpp */,
+				6782B4D31C355E7700B1E5F9 /* motor.cpp */,
+				6782B4D41C355E7700B1E5F9 /* motor.hpp */,
 				6797508615C99600003F30DA /* ds_motor.pde */,
 				6797508915C99600003F30DA /* LocalLibrary.h */,
 				6797508715C99600003F30DA /* LocalLibrary.cpp */,
@@ -2011,6 +2016,7 @@
 				AA2A151212000816AA0000D6 /* GSM3SoftSerial.h in Sources */,
 				AA2A151212000816AA0000D7 /* GSM3VoiceCallService.cpp in Sources */,
 				AA2A151212000816AA0000D8 /* GSM3VoiceCallService.h in Sources */,
+				6782B4D51C355E7700B1E5F9 /* motor.cpp in Sources */,
 				AA2A151212000816AA0000DB /* LiquidCrystal.cpp in Sources */,
 				AA2A151212000816AA0000DC /* LiquidCrystal.h in Sources */,
 				AA2A151212000816AA0000DF /* Arduino_LCD.cpp in Sources */,
