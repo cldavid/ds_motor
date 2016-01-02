@@ -12,14 +12,21 @@
 #define NO_PUMPS    3
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
-Adafruit_DCMotor *myPump[NO_PUMPS] = {AFMS.getMotor(1), AFMS.getMotor(2), AFMS.getMotor(3)};
+Adafruit_DCMotor *myPump[NO_PUMPS];
 
 void shield_pump_init(void) {
     AFMS.begin();
-    
+    println("debug pointer %p", AFMS.getMotor(1));
+
     for (int i = 0; i < NO_PUMPS; i++) {
-        myPump[i]->setSpeed(255);
-        myPump[i]->run(RELEASE);
+        println("Constructing class for pump %d", i);
+        myPump[i] = AFMS.getMotor(i+1);
+            
+        println("Class located at %p", myPump[i]);
+        //println("Setting speed to 255 for pump %d", i);
+        //myPump[i]->setSpeed(255);
+        //println("Halting pump %d", i);
+        //myPump[i]->run(RELEASE);
     }
 }
 

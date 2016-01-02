@@ -37,8 +37,7 @@ void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
 	Serial.begin(SERIAL_BAUD_RATE);
-	shield_pump_init();
-	pinMode(8, OUTPUT); 
+	pinMode(8, OUTPUT);
 	pinMode(9, OUTPUT); 
 	pinMode(10, OUTPUT); 
 	pinMode(11, OUTPUT); 
@@ -53,6 +52,8 @@ void setup() {
 
 	/* Read Event List From EEPROM */
 	eeprom_read_config();
+    shield_pump_init();
+
 }
 
 ///
