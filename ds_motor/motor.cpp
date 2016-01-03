@@ -11,7 +11,7 @@
 #include "motor.hpp"
 #include <println.h>
 
-#define NO_PUMPS    3
+#define NO_PUMPS    4
 
 extern unsigned long   curTime;
 

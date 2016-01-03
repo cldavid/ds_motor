@@ -30,7 +30,8 @@ static void print_datetime(unsigned long time, unsigned int pin, unsigned long r
 enum M_LIST {
     MOTOR_1 = 1,
     MOTOR_2,
-    MOTOR_3
+    MOTOR_3,
+    MOTOR_4,
 };
 
 const char cmd_string_1[] PROGMEM = "help";
@@ -40,18 +41,22 @@ const char cmd_string_4[] PROGMEM = "getDate";
 const char cmd_string_5[] PROGMEM = "drive_motor_1";
 const char cmd_string_6[] PROGMEM = "drive_motor_2";
 const char cmd_string_7[] PROGMEM = "drive_motor_3";
-const char cmd_string_8[] PROGMEM = "set_motor_1";
-const char cmd_string_9[] PROGMEM = "set_motor_2";
-const char cmd_string_10[] PROGMEM = "set_motor_3";
-const char cmd_string_11[] PROGMEM = "get_motor_1";
-const char cmd_string_12[] PROGMEM = "get_motor_2";
-const char cmd_string_13[] PROGMEM = "get_motor_3";
-const char cmd_string_14[] PROGMEM = "disable_motor_1";
-const char cmd_string_15[] PROGMEM = "disable_motor_2";
-const char cmd_string_16[] PROGMEM = "disable_motor_3";
-const char cmd_string_17[] PROGMEM = "system_info";
-const char cmd_string_18[] PROGMEM = "debug";
-const char cmd_string_19[] PROGMEM = "save";
+const char cmd_string_8[] PROGMEM = "drive_motor_4";
+const char cmd_string_9[] PROGMEM = "set_motor_1";
+const char cmd_string_10[] PROGMEM = "set_motor_2";
+const char cmd_string_11[] PROGMEM = "set_motor_3";
+const char cmd_string_12[] PROGMEM = "set_motor_4";
+const char cmd_string_13[] PROGMEM = "get_motor_1";
+const char cmd_string_14[] PROGMEM = "get_motor_2";
+const char cmd_string_15[] PROGMEM = "get_motor_3";
+const char cmd_string_16[] PROGMEM = "get_motor_4";
+const char cmd_string_17[] PROGMEM = "disable_motor_1";
+const char cmd_string_18[] PROGMEM = "disable_motor_2";
+const char cmd_string_19[] PROGMEM = "disable_motor_3";
+const char cmd_string_20[] PROGMEM = "disable_motor_4";
+const char cmd_string_21[] PROGMEM = "system_info";
+const char cmd_string_22[] PROGMEM = "debug";
+const char cmd_string_23[] PROGMEM = "save";
 
 PGM_P const cmd_list[] PROGMEM = {
     cmd_string_1,
@@ -73,7 +78,11 @@ PGM_P const cmd_list[] PROGMEM = {
     cmd_string_17,
     cmd_string_18,
     cmd_string_19,
-    NULL 
+    cmd_string_20,
+    cmd_string_21,
+    cmd_string_22,
+    cmd_string_23,
+    NULL
 };
 
 enum CMD_LIST {
@@ -84,15 +93,19 @@ enum CMD_LIST {
     CMD_MOTOR1,
     CMD_MOTOR2,
     CMD_MOTOR3,
+    CMD_MOTOR4,
     CMD_SET_MOTOR1,
     CMD_SET_MOTOR2,
     CMD_SET_MOTOR3,
+    CMD_SET_MOTOR4,
     CMD_GET_MOTOR1,
     CMD_GET_MOTOR2,
     CMD_GET_MOTOR3,
+    CMD_GET_MOTOR4,
     CMD_DISABLE_MOTOR1,
     CMD_DISABLE_MOTOR2,
     CMD_DISABLE_MOTOR3,
+    CMD_DISABLE_MOTOR4,
     CMD_SYSTEM_INFO,
     CMD_DEBUG,
     CMD_SAVE,
@@ -125,8 +138,11 @@ event_t event_list[]  = {
     {           0,    0,    M_PUMP_2, T_DAY, shield_start_pump     },
     {           0,    0,    M_PUMP_2, T_DAY, shield_stop_pump      },
     
-    {           0,    0,    M_PUMP_2, T_DAY, shield_start_pump     },
+    {           0,    0,    M_PUMP_3, T_DAY, shield_start_pump     },
     {           0,    0,    M_PUMP_3, T_DAY, shield_stop_pump      },
+    
+    {           0,    0,    M_PUMP_4, T_DAY, shield_start_pump     },
+    {           0,    0,    M_PUMP_4, T_DAY, shield_stop_pump      },
     
     {   BUILDTIME,    0,    NOT_USED,     10, print_datetime }    
 };
@@ -270,7 +286,7 @@ void processCommand(const char *recvString) {
     
     switch(i) {
         case CMD_HELP:
-            println("Serial Command List:");
+            Serial.println(F("Serial Command List:"));
             for (i = 0; cmd_list[i] != NULL; i++) {
                 const char *p = (const char *)pgm_read_word(&cmd_list[i]);
                 strcpy_P(buffer, p);
@@ -313,6 +329,13 @@ void processCommand(const char *recvString) {
             shield_drive_pump(Time.getUnixTime(), pin, t);
             break;
         
+        case CMD_MOTOR4:
+            pin = M_PUMP_4;
+            t   = strtoul(arg, NULL, 10);
+            
+            shield_drive_pump(Time.getUnixTime(), pin, t);
+            break;
+            
         case CMD_SET_MOTOR1:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
                 println("Error invalid input");
@@ -331,10 +354,18 @@ void processCommand(const char *recvString) {
             
         case CMD_SET_MOTOR3:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                println("Error invalid input");
+                Serial.println(F("Error invalid input"));
                 break;
             }
             set_motor_event_info(MOTOR_3, start_time, rt_time, rp_time);
+            break;
+        
+        case CMD_SET_MOTOR4:
+            if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
+                Serial.println(F("Error invalid input"));
+                break;
+            }
+            set_motor_event_info(MOTOR_4, start_time, rt_time, rp_time);
             break;
             
         case CMD_GET_MOTOR1:
@@ -348,6 +379,10 @@ void processCommand(const char *recvString) {
         case CMD_GET_MOTOR3:
             get_motor_event_info(MOTOR_3);
             break;
+            
+        case CMD_GET_MOTOR4:
+            get_motor_event_info(MOTOR_4);
+            break;
 
         case CMD_DISABLE_MOTOR1:
             set_motor_event_info(MOTOR_1, 0, 0, T_DAY);
@@ -359,6 +394,10 @@ void processCommand(const char *recvString) {
             
         case CMD_DISABLE_MOTOR3:
             set_motor_event_info(MOTOR_3, 0, 0, T_DAY);
+            break;
+            
+        case CMD_DISABLE_MOTOR4:
+            set_motor_event_info(MOTOR_4, 0, 0, T_DAY);
             break;
             
         case CMD_SYSTEM_INFO:
