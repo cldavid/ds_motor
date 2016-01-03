@@ -16,6 +16,7 @@
 //
 
 #include <stdio.h>
+#include <avr/pgmspace.h>
 #include "LocalLibrary.h"
 #include "string.h"
 #include "time.h"
@@ -52,7 +53,7 @@ const char cmd_string_17[] PROGMEM = "system_info";
 const char cmd_string_18[] PROGMEM = "debug";
 const char cmd_string_19[] PROGMEM = "save";
 
-const char *cmd_list[] = { 
+PGM_P const cmd_list[] PROGMEM = {
     cmd_string_1,
     cmd_string_2,
     cmd_string_3,
@@ -246,6 +247,7 @@ void printSystemInfo(void) {
 }
 
 void processCommand(const char *recvString) {
+    char            buffer[21]    = "";
 	char            cmd[21]       = "";
 	char            arg[41]       = "";
     unsigned long   start_time      = 0;
@@ -259,7 +261,9 @@ void processCommand(const char *recvString) {
 	sscanf(recvString, "%20s %40[^\n]", cmd, arg);
     
     for (i = 0; cmd_list[i] != NULL; i++) {
-        if (!strcmp(cmd_list[i], cmd)) {
+        const char *p = (const char *)pgm_read_word(&cmd_list[i]);
+        strcpy_P(buffer, p);
+        if (!strcmp(buffer, cmd)) {
             break;
         }
     }
@@ -268,7 +272,9 @@ void processCommand(const char *recvString) {
         case CMD_HELP:
             println("Serial Command List:");
             for (i = 0; cmd_list[i] != NULL; i++) {
-                println(cmd_list[i]);
+                const char *p = (const char *)pgm_read_word(&cmd_list[i]);
+                strcpy_P(buffer, p);
+                println(buffer);
             }
             break;
             

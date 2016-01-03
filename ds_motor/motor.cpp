@@ -21,14 +21,10 @@ Adafruit_DCMotor *myPump[NO_PUMPS];
 void shield_pump_init(void) {
     AFMS.begin();
     for (int i = 0; i < NO_PUMPS; i++) {
-        println("pump %d: constructing class", i+1);
         myPump[i] = AFMS.getMotor(i+1);
-            
-        println("pump %d: class pointer %p", i+1, myPump[i]);
         println("pump %d: configuring speed", i+1);
         myPump[i]->setSpeed(255);
         println("Halting pump %d", i+1);
-        myPump[i]->run(FORWARD);
         myPump[i]->run(RELEASE);
     }
     
@@ -36,13 +32,10 @@ void shield_pump_init(void) {
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
-    //myPump[motor]->run(FORWARD);
-    //myPump[motor]->setSpeed(255);
-    println("pointer %p", myPump[motor]);
-    delay(rt_time);
-    //myPump[motor]->run(RELEASE);
-    //myPump[motor]->setSpeed(0);
 
+    myPump[motor]->run(FORWARD);
+    delay(rt_time);
+    myPump[motor]->run(RELEASE);
     return;
 }
 
