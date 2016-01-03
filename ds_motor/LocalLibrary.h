@@ -4,7 +4,6 @@
 /// @details	<#details#>
 /// @n	
 /// @n @b	Project ds_motor
-/// @n @a	Developed with [embedXcode](http://embedXcode.weebly.com)
 /// 
 /// @author	David Cluytens
 /// @author	Cluytens.net
@@ -17,21 +16,8 @@
 /// @see	ReadMe.txt for references
 ///
 
-
 // Core library - IDE-based
-#if defined(WIRING) // Wiring specific - official
-#include "Wiring.h"
-#elif defined(MAPLE_IDE) // Maple specific - official
-#include "WProgram.h"   
-#elif defined(MPIDE) // chipKIT specific - embedXcode only
-#include "WProgram.h"
-#elif defined(ENERGIA) // LaunchPad specific - embedXcode only
-#include "Energia.h"
-#elif defined(ARDUINO) && (ARDUINO >= 100) // Arduino 1.0 specific - official
 #include "Arduino.h"
-#elif defined(ARDUINO) && (ARDUINO < 100) // Arduino 23 specific - official
-#include "WProgram.h"
-#endif
 
 #ifndef ds_motor_LocalLibrary_h
 #define ds_motor_LocalLibrary_h
@@ -58,6 +44,6 @@ void eeprom_write_event_list(unsigned long t);
 void get_motor_event_info(unsigned int motor);
 void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned long rt_time, unsigned long rp_time);
 
-void processCommand(unsigned long cur_time, const char *recvString);
+void processCommand(const char *recvString);
 
 #endif

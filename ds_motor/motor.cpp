@@ -6,35 +6,43 @@
 //
 //
 #include <Adafruit_MotorShield.h>
+#include "utility/Adafruit_PWMServoDriver.h"
+
 #include "motor.hpp"
-#include "println.h"
+#include <println.h>
 
 #define NO_PUMPS    3
+
+extern unsigned long   curTime;
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *myPump[NO_PUMPS];
 
 void shield_pump_init(void) {
     AFMS.begin();
-    println("debug pointer %p", AFMS.getMotor(1));
-
     for (int i = 0; i < NO_PUMPS; i++) {
-        println("Constructing class for pump %d", i);
+        println("pump %d: constructing class", i+1);
         myPump[i] = AFMS.getMotor(i+1);
             
-        println("Class located at %p", myPump[i]);
-        //println("Setting speed to 255 for pump %d", i);
-        //myPump[i]->setSpeed(255);
-        //println("Halting pump %d", i);
-        //myPump[i]->run(RELEASE);
+        println("pump %d: class pointer %p", i+1, myPump[i]);
+        println("pump %d: configuring speed", i+1);
+        myPump[i]->setSpeed(255);
+        println("Halting pump %d", i+1);
+        myPump[i]->run(FORWARD);
+        myPump[i]->run(RELEASE);
     }
+    
 }
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
-    myPump[motor]->run(FORWARD);
+    //myPump[motor]->run(FORWARD);
+    //myPump[motor]->setSpeed(255);
+    println("pointer %p", myPump[motor]);
     delay(rt_time);
-    myPump[motor]->run(RELEASE);
+    //myPump[motor]->run(RELEASE);
+    //myPump[motor]->setSpeed(0);
+
     return;
 }
 

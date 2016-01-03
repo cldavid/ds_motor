@@ -50,15 +50,15 @@
 		679190891C2B3DAC00A7522E /* Adafruit_PWMServoDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Adafruit_PWMServoDriver.cpp; sourceTree = "<group>"; };
 		6791908A1C2B3DAC00A7522E /* Adafruit_PWMServoDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Adafruit_PWMServoDriver.h; sourceTree = "<group>"; };
 		6791908B1C2B3DAC00A7522E /* license.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.txt; sourceTree = "<group>"; };
-		6797507815C99600003F30DA /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Index; path = /Users/davidc/Dropbox/Development/Arduino/ds_motor/build/Debug/Index; sourceTree = "<absolute>"; };
 		6797508615C99600003F30DA /* ds_motor.pde */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = ds_motor.pde; sourceTree = "<group>"; };
 		6797508715C99600003F30DA /* LocalLibrary.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LocalLibrary.cpp; sourceTree = "<group>"; };
 		6797508915C99600003F30DA /* LocalLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalLibrary.h; sourceTree = "<group>"; };
 		6797508A15C99600003F30DA /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		6797508D15C99601003F30DA /* Sketchbook.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sketchbook.txt; sourceTree = "<group>"; };
 		679753BE15C99607003F30DA /* ReadMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
-		679753E815C9A0B8003F30DA /* time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time.cpp; sourceTree = "<group>"; };
-		679753E915C9A0B8003F30DA /* time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = time.h; sourceTree = "<group>"; };
+		679753E815C9A0B8003F30DA /* time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = time.cpp; path = ../libraries/dc_time/time.cpp; sourceTree = "<group>"; };
+		679753E915C9A0B8003F30DA /* time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = time.h; path = ../libraries/dc_time/time.h; sourceTree = "<group>"; };
+		67ADA8B41C3966A100C99C13 /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		67C09A8E16278A63004038A1 /* scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scheduler.h; sourceTree = "<group>"; };
 		67C09A8F16278A7B004038A1 /* scheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scheduler.cpp; sourceTree = "<group>"; };
 		67C09A92162798A6004038A1 /* println.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = println.h; sourceTree = "<group>"; };
@@ -177,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				6797508315C99600003F30DA /* ds_motor */,
+				67ADA8B41C3966A100C99C13 /* Index */,
 			);
 			sourceTree = "<group>";
 		};
@@ -390,7 +391,7 @@
 			);
 			name = Index;
 			productName = Index;
-			productReference = 6797507815C99600003F30DA /* Index */;
+			productReference = 67ADA8B41C3966A100C99C13 /* Index */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */

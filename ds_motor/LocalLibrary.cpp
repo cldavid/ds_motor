@@ -2,8 +2,6 @@
 // LocalLibrary.cpp 
 // Library C++ code
 // ----------------------------------
-// Developed with embedXcode 
-// http://embedXcode.weebly.com
 //
 // Project ds_motor
 //
@@ -34,26 +32,46 @@ enum M_LIST {
     MOTOR_3
 };
 
+const char cmd_string_1[] PROGMEM = "help";
+const char cmd_string_2[] PROGMEM = "setUnixTime";
+const char cmd_string_3[] PROGMEM = "getUnixTime";
+const char cmd_string_4[] PROGMEM = "getDate";
+const char cmd_string_5[] PROGMEM = "drive_motor_1";
+const char cmd_string_6[] PROGMEM = "drive_motor_2";
+const char cmd_string_7[] PROGMEM = "drive_motor_3";
+const char cmd_string_8[] PROGMEM = "set_motor_1";
+const char cmd_string_9[] PROGMEM = "set_motor_2";
+const char cmd_string_10[] PROGMEM = "set_motor_3";
+const char cmd_string_11[] PROGMEM = "get_motor_1";
+const char cmd_string_12[] PROGMEM = "get_motor_2";
+const char cmd_string_13[] PROGMEM = "get_motor_3";
+const char cmd_string_14[] PROGMEM = "disable_motor_1";
+const char cmd_string_15[] PROGMEM = "disable_motor_2";
+const char cmd_string_16[] PROGMEM = "disable_motor_3";
+const char cmd_string_17[] PROGMEM = "system_info";
+const char cmd_string_18[] PROGMEM = "debug";
+const char cmd_string_19[] PROGMEM = "save";
+
 const char *cmd_list[] = { 
-    "help",
-    "setUnixTime", 
-    "getUnixTime", 
-    "getDate", 
-    "drive_motor_1",
-    "drive_motor_2",
-    "drive_motor_3",
-    "set_motor_1",
-    "set_motor_2",
-    "set_motor_3",
-    "get_motor_1",
-    "get_motor_2",
-    "get_motor_3",
-    "disable_motor_1",
-    "disable_motor_2",
-    "disable_motor_3",
-    "system_info",
-    "debug",
-    "save",
+    cmd_string_1,
+    cmd_string_2,
+    cmd_string_3,
+    cmd_string_4,
+    cmd_string_5,
+    cmd_string_6,
+    cmd_string_7,
+    cmd_string_8,
+    cmd_string_9,
+    cmd_string_10,
+    cmd_string_11,
+    cmd_string_12,
+    cmd_string_13,
+    cmd_string_14,
+    cmd_string_15,
+    cmd_string_16,
+    cmd_string_17,
+    cmd_string_18,
+    cmd_string_19,
     NULL 
 };
 
@@ -139,6 +157,7 @@ void eeprom_read_config(void) {
         EEPROM.read_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
         EEPROM.read_block(&epoch, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
     }
+ 
     /* Skip default events that are programmed at time 0 */ 
     Time.setUnixTime(epoch);
     Scheduler.set_event_list(event_list, sizeof(event_list));
@@ -216,7 +235,7 @@ void printSystemInfo(void) {
     println("M_LIST    \t\tsize %d bytes", sizeof(M_LIST));
     println("cmd_list  \t\tsize %d bytes", sizeof(cmd_list));
     println("CMD_LIST  \t\tsize %d bytes", sizeof(CMD_LIST));
-    println("event_list\t\tsize %d bytes", sizeof(event_list)); 
+    println("event_list\t\tsize %d bytes", sizeof(event_list));
     
     println("start_pump \t\taddr %p", shield_start_pump);
     println("stop_pump  \t\taddr %p", shield_stop_pump);
@@ -226,7 +245,7 @@ void printSystemInfo(void) {
     return;
 }
 
-void processCommand(unsigned long cur_time, const char *recvString) {
+void processCommand(const char *recvString) {
 	char            cmd[21]       = "";
 	char            arg[41]       = "";
     unsigned long   start_time      = 0;
@@ -260,32 +279,32 @@ void processCommand(unsigned long cur_time, const char *recvString) {
             break;
             
         case CMD_GET_UNIXTIME:
-       		println("%lu", cur_time);     
+       		println("%lu", Time.getUnixTime());
             break;
             
         case CMD_GET_DATE:
-            print_datetime(cur_time, NOT_USED, 0);
+            print_datetime(Time.getUnixTime(), NOT_USED, 0);
             break;
 
         case CMD_MOTOR1:
             pin = M_PUMP_1;
             t   = strtoul(arg, NULL, 10);
             
-            shield_drive_pump(cur_time, pin, t);
+            shield_drive_pump(Time.getUnixTime(), pin, t);
             break;
             
         case CMD_MOTOR2:
             pin = M_PUMP_2;
             t   = strtoul(arg, NULL, 10);
             
-            shield_drive_pump(cur_time, pin, t);
+            shield_drive_pump(Time.getUnixTime(), pin, t);
             break;
             
         case CMD_MOTOR3:
             pin = M_PUMP_3;
             t   = strtoul(arg, NULL, 10);
 
-            shield_drive_pump(cur_time, pin, t);
+            shield_drive_pump(Time.getUnixTime(), pin, t);
             break;
         
         case CMD_SET_MOTOR1:
@@ -345,7 +364,7 @@ void processCommand(unsigned long cur_time, const char *recvString) {
             break;
         
         case CMD_SAVE:
-            eeprom_write_event_list(cur_time);
+            eeprom_write_event_list(Time.getUnixTime());
             break;
             
         default:
