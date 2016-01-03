@@ -22,17 +22,22 @@ void shield_pump_init(void) {
     AFMS.begin();
     for (int i = 0; i < NO_PUMPS; i++) {
         myPump[i] = AFMS.getMotor(i+1);
-        println("pump %d: configuring speed", i+1);
         myPump[i]->setSpeed(255);
-        println("Halting pump %d", i+1);
         myPump[i]->run(RELEASE);
     }
     
 }
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
-
+    //println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
+    Serial.print(F("Time: "));
+    Serial.print(time);
+    Serial.print(F(" driving motor "));
+    Serial.print(motor+1);
+    Serial.print(F(" for "));
+    Serial.print(rt_time);
+    Serial.print(F(" ms\n"));
+    
     myPump[motor]->run(FORWARD);
     delay(rt_time);
     myPump[motor]->run(RELEASE);
@@ -40,13 +45,27 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
 }
 
 void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    println("Time: %lu motor started on pin %u for %lu ms", time, motor, rt_time);
+    //println("Time: %lu motor started on pin %u for %lu ms", time, motor, rt_time);
+    Serial.print(F("Time: "));
+    Serial.print(time);
+    Serial.print(F("motor "));
+    Serial.print(motor+1);
+    Serial.print(F(" started for "));
+    Serial.print(rt_time);
+    Serial.print(F(" ms\n"));
     myPump[motor]->run(FORWARD);
     return;
 }
 
 void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    println("Time: %lu motor stopped on pin %u for %lu ms", time, motor, rt_time);
+    //println("Time: %lu motor stopped on pin %u for %lu ms", time, motor, rt_time);
+    Serial.print(F("Time: "));
+    Serial.print(time);
+    Serial.print(F("motor "));
+    Serial.print(motor+1);
+    Serial.print(F(" stopped for "));
+    Serial.print(rt_time);
+    Serial.print(F(" ms\n"));
     myPump[motor]->run(RELEASE);
     return;
 }

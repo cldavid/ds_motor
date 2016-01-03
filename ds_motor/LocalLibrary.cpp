@@ -113,7 +113,7 @@ enum CMD_LIST {
 };
 
 #define T_DAY               86400
-#define NOT_USED            0xffffffff
+#define NOT_USED            0xffff
 
 unsigned int debug  =   0;
 
@@ -163,10 +163,10 @@ void eeprom_read_config(void) {
     EEPROM.read_block(&magic, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
     if (magic != magic_num) {
         println("Incorrect magic number found %u != %u", magic, magic_num);
-        println("Loading default config!");
+        Serial.println(F("Loading default config!"));
     } else {
         println("Magic: %d ok.", magic);
-        println("Reading config from EEPROM.");
+        Serial.println(F("Reading config from EEPROM."));
         println("Magic address: %p", EEPROM_START_ADDR_MAPINIT);
         println("Event address: %p", EEPROM_START_ADDR_EVENTLIST);
         println("Epoch address: %p", EEPROM_START_ADDR_LASTSAVE);
@@ -181,7 +181,7 @@ void eeprom_read_config(void) {
 }
 
 void eeprom_write_event_list(unsigned long t) {
-    println("Updating EEPROM.");
+    Serial.println(F("Updating EEPROM."));
     EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic_num));
     EEPROM.write_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
     EEPROM.write_block(&t, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
@@ -191,7 +191,7 @@ void get_motor_event_info(unsigned int motor) {
     size_t index;
     
     if (motor <= 0 || motor > 3 ) {
-        println("Invalid motor selected");
+        Serial.println(F("Invalid motor selected"));
         return;
     }
 
@@ -213,12 +213,12 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
     size_t index;
     
     if (motor <= 0 || motor > 3 ) {
-        println("Invalid motor selected");
+        Serial.println(F("Invalid motor selected"));
         return;
     }
     
     if (rt_time >= rp_time) {
-        println("Rotate time cannot be bigger than repeat time");
+        Serial.println(F("Rotate time cannot be bigger than repeat time"));
         return;
     }
         
@@ -338,7 +338,7 @@ void processCommand(const char *recvString) {
             
         case CMD_SET_MOTOR1:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                println("Error invalid input");
+                Serial.println(F("Error invalid input"));
                 break;
             }           
             set_motor_event_info(MOTOR_1, start_time, rt_time, rp_time);
@@ -346,7 +346,7 @@ void processCommand(const char *recvString) {
         
         case CMD_SET_MOTOR2:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                println("Error invalid input");
+                Serial.println(F("Error invalid input"));
                 break;
             }            
             set_motor_event_info(MOTOR_2, start_time, rt_time, rp_time);
