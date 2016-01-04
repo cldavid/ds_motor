@@ -276,7 +276,7 @@ void processCommand(const char *recvString) {
     /* S_WIDTH = 80. 80 / 2 = 40. 40 - 1 (\0) = 39 */
 	sscanf(recvString, "%20s %40[^\n]", cmd, arg);
     
-    for (i = 0; cmd_list[i] != NULL; i++) {
+    for (i = 0; i < CMD_UNKNOWN; i++) {
         const char *p = (const char *)pgm_read_word(&cmd_list[i]);
         strcpy_P(buffer, p);
         if (!strcmp(buffer, cmd)) {
@@ -287,7 +287,7 @@ void processCommand(const char *recvString) {
     switch(i) {
         case CMD_HELP:
             Serial.println(F("Serial Command List:"));
-            for (i = 0; cmd_list[i] != NULL; i++) {
+            for (i = 0; i < CMD_UNKNOWN; i++) {
                 const char *p = (const char *)pgm_read_word(&cmd_list[i]);
                 strcpy_P(buffer, p);
                 println(buffer);

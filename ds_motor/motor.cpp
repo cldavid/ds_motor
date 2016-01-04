@@ -36,7 +36,7 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
     Serial.print(motor+1);
     Serial.print(F(" for "));
     Serial.print(rt_time);
-    Serial.print(F(" ms\n"));
+    Serial.print(F(" ms\n\r"));
     
     myPump[motor]->run(FORWARD);
     delay(rt_time);
@@ -52,7 +52,7 @@ void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_
     Serial.print(motor+1);
     Serial.print(F(" started for "));
     Serial.print(rt_time);
-    Serial.print(F(" ms\n"));
+    Serial.print(F(" ms\n\r"));
     myPump[motor]->run(FORWARD);
     return;
 }
@@ -65,7 +65,7 @@ void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_t
     Serial.print(motor+1);
     Serial.print(F(" stopped for "));
     Serial.print(rt_time);
-    Serial.print(F(" ms\n"));
+    Serial.print(F(" ms\n\r"));
     myPump[motor]->run(RELEASE);
     return;
 }
