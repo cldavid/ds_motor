@@ -167,10 +167,6 @@ void eeprom_read_config(void) {
     } else {
         println("Magic: %d ok.", magic);
         Serial.println(F("Reading config from EEPROM."));
-        println("Magic address: %p", EEPROM_START_ADDR_MAPINIT);
-        println("Event address: %p", EEPROM_START_ADDR_EVENTLIST);
-        println("Epoch address: %p", EEPROM_START_ADDR_LASTSAVE);
-        
         EEPROM.read_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
         EEPROM.read_block(&epoch, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
     }
