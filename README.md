@@ -1,20 +1,20 @@
-ds_motor
-========
-
-Aquarium Dosing Unit
-
-What do you need?
-	- Arduino uno yun
-	- Adafruit motor shield v2
-
-Bridge console:
-Available via: 
-	ssh root@arduino.lan
-	telnet localhost 6571
-
-Commands:
+ds_motor<br>
+========<br>
+<br>
+Aquarium Dosing Unit<br>
+<br>
+What do you need? <br>
+	- Arduino uno yun <br>
+	- Adafruit motor shield v2 <br>
+<br>
+Bridge console: <br>
+Available via: <br>
+	ssh root@arduino.lan <br>
+	telnet localhost 6571 <br>
+<br>
+Commands: <br>
 help			- Help function <br>
-setUnixTime		- Set Unix Time
+setUnixTime		- Set Unix Time <br>
 getUnixTime		- Get System Time in seconds
 getDate			- Get Human system time
 drive_motor_1		- drive motor 1 for x ms
