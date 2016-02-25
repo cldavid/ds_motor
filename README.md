@@ -4,11 +4,13 @@ ds_motor
 Aquarium Dosing Unit
 
 What do you need?
-	- Arduino uno R3
+	- Arduino uno yun
 	- Adafruit motor shield v2
 
-
-Serial console:
+Bridge console:
+Available via: 
+	ssh root@arduino.lan
+	telnet localhost 6571
 
 Commands:
 help			- Help function
