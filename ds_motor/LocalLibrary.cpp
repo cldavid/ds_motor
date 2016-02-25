@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 #include <avr/pgmspace.h>
+#include <Console.h>
 #include "LocalLibrary.h"
 #include "string.h"
 #include "time.h"
@@ -163,10 +164,10 @@ void eeprom_read_config(void) {
     EEPROM.read_block(&magic, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
     if (magic != magic_num) {
         println("Incorrect magic number found %u != %u", magic, magic_num);
-        Serial.println(F("Loading default config!"));
+        Console.println(F("Loading default config!"));
     } else {
         println("Magic: %d ok.", magic);
-        Serial.println(F("Reading config from EEPROM."));
+        Console.println(F("Reading config from EEPROM."));
         EEPROM.read_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
         EEPROM.read_block(&epoch, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
     }
@@ -177,7 +178,7 @@ void eeprom_read_config(void) {
 }
 
 void eeprom_write_event_list(unsigned long t) {
-    Serial.println(F("Updating EEPROM."));
+    Console.println(F("Updating EEPROM."));
     EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic_num));
     EEPROM.write_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
     EEPROM.write_block(&t, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
@@ -187,7 +188,7 @@ void get_motor_event_info(unsigned int motor) {
     size_t index;
     
     if (motor <= 0 || motor > 3 ) {
-        Serial.println(F("Invalid motor selected"));
+        Console.println(F("Invalid motor selected"));
         return;
     }
 
@@ -209,12 +210,12 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
     size_t index;
     
     if (motor <= 0 || motor > 3 ) {
-        Serial.println(F("Invalid motor selected"));
+        Console.println(F("Invalid motor selected"));
         return;
     }
     
     if (rt_time >= rp_time) {
-        Serial.println(F("Rotate time cannot be bigger than repeat time"));
+        Console.println(F("Rotate time cannot be bigger than repeat time"));
         return;
     }
         
@@ -282,7 +283,7 @@ void processCommand(const char *recvString) {
     
     switch(i) {
         case CMD_HELP:
-            Serial.println(F("Serial Command List:"));
+            Console.println(F("Console Command List:"));
             for (i = 0; i < CMD_UNKNOWN; i++) {
                 const char *p = (const char *)pgm_read_word(&cmd_list[i]);
                 strcpy_P(buffer, p);
@@ -334,7 +335,7 @@ void processCommand(const char *recvString) {
             
         case CMD_SET_MOTOR1:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                Serial.println(F("Error invalid input"));
+                Console.println(F("Error invalid input"));
                 break;
             }           
             set_motor_event_info(MOTOR_1, start_time, rt_time, rp_time);
@@ -342,7 +343,7 @@ void processCommand(const char *recvString) {
         
         case CMD_SET_MOTOR2:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                Serial.println(F("Error invalid input"));
+                Console.println(F("Error invalid input"));
                 break;
             }            
             set_motor_event_info(MOTOR_2, start_time, rt_time, rp_time);
@@ -350,7 +351,7 @@ void processCommand(const char *recvString) {
             
         case CMD_SET_MOTOR3:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                Serial.println(F("Error invalid input"));
+                Console.println(F("Error invalid input"));
                 break;
             }
             set_motor_event_info(MOTOR_3, start_time, rt_time, rp_time);
@@ -358,7 +359,7 @@ void processCommand(const char *recvString) {
         
         case CMD_SET_MOTOR4:
             if (3 != sscanf(arg, "start\t%lu\tfor\t%lu\tevery\t%lu", &start_time, &rt_time, &rp_time)) {
-                Serial.println(F("Error invalid input"));
+                Console.println(F("Error invalid input"));
                 break;
             }
             set_motor_event_info(MOTOR_4, start_time, rt_time, rp_time);

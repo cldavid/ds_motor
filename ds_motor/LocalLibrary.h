@@ -23,6 +23,7 @@
 #define ds_motor_LocalLibrary_h
 #include <stddef.h>
 
+#define LINUX_BAUD_RATE     250000
 #define SERIAL_BAUD_RATE    115200
 #define SERIAL_INPUT_MAX    60
 

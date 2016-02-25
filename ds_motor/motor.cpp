@@ -9,6 +9,7 @@
 #include "utility/Adafruit_PWMServoDriver.h"
 
 #include "motor.hpp"
+#include <Console.h>
 #include <println.h>
 
 #define NO_PUMPS    4
@@ -30,13 +31,13 @@ void shield_pump_init(void) {
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     //println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
-    Serial.print(F("Time: "));
-    Serial.print(time);
-    Serial.print(F(" driving motor "));
-    Serial.print(motor+1);
-    Serial.print(F(" for "));
-    Serial.print(rt_time);
-    Serial.print(F(" ms\n\r"));
+    Console.print(F("Time: "));
+    Console.print(time);
+    Console.print(F(" driving motor "));
+    Console.print(motor+1);
+    Console.print(F(" for "));
+    Console.print(rt_time);
+    Console.print(F(" ms\n\r"));
     
     myPump[motor]->run(FORWARD);
     delay(rt_time);
@@ -46,26 +47,26 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
 
 void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     //println("Time: %lu motor started on pin %u for %lu ms", time, motor, rt_time);
-    Serial.print(F("Time: "));
-    Serial.print(time);
-    Serial.print(F("motor "));
-    Serial.print(motor+1);
-    Serial.print(F(" started for "));
-    Serial.print(rt_time);
-    Serial.print(F(" ms\n\r"));
+    Console.print(F("Time: "));
+    Console.print(time);
+    Console.print(F("motor "));
+    Console.print(motor+1);
+    Console.print(F(" started for "));
+    Console.print(rt_time);
+    Console.print(F(" ms\n\r"));
     myPump[motor]->run(FORWARD);
     return;
 }
 
 void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     //println("Time: %lu motor stopped on pin %u for %lu ms", time, motor, rt_time);
-    Serial.print(F("Time: "));
-    Serial.print(time);
-    Serial.print(F("motor "));
-    Serial.print(motor+1);
-    Serial.print(F(" stopped for "));
-    Serial.print(rt_time);
-    Serial.print(F(" ms\n\r"));
+    Console.print(F("Time: "));
+    Console.print(time);
+    Console.print(F("motor "));
+    Console.print(motor+1);
+    Console.print(F(" stopped for "));
+    Console.print(rt_time);
+    Console.print(F(" ms\n\r"));
     myPump[motor]->run(RELEASE);
     return;
 }
