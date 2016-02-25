@@ -13,7 +13,7 @@ Available via:
 	telnet localhost 6571
 
 Commands:
-help			- Help function
+help			- Help function <br>
 setUnixTime		- Set Unix Time
 getUnixTime		- Get System Time in seconds
 getDate			- Get Human system time
