@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <avr/pgmspace.h>
 #include <Console.h>
+#include <DallasTemperature.h>
 #include "LocalLibrary.h"
 #include "string.h"
 #include "time.h"
@@ -26,7 +27,18 @@
 #include "println.h"
 #include "motor.hpp"
 
+// Data wire is plugged into pin 2 on the Arduino
+#define ONE_WIRE_BUS 7
+#define TEMP_INDEX 8
+
+// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+OneWire oneWire(ONE_WIRE_BUS);
+
+// Pass our oneWire reference to Dallas Temperature.
+DallasTemperature sensors(&oneWire);
+
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time);
+static void print_temperature_info(unsigned long time, unsigned int pin, unsigned long rt_time);
 
 enum M_LIST {
     MOTOR_1 = 1,
@@ -55,9 +67,12 @@ const char cmd_string_17[] PROGMEM = "disable_motor_1";
 const char cmd_string_18[] PROGMEM = "disable_motor_2";
 const char cmd_string_19[] PROGMEM = "disable_motor_3";
 const char cmd_string_20[] PROGMEM = "disable_motor_4";
-const char cmd_string_21[] PROGMEM = "system_info";
-const char cmd_string_22[] PROGMEM = "debug";
-const char cmd_string_23[] PROGMEM = "save";
+const char cmd_string_21[] PROGMEM = "set_temp_interval";
+const char cmd_string_22[] PROGMEM = "get_temp_interval";
+const char cmd_string_23[] PROGMEM = "get_temperatures";
+const char cmd_string_24[] PROGMEM = "system_info";
+const char cmd_string_25[] PROGMEM = "debug";
+const char cmd_string_26[] PROGMEM = "save";
 
 PGM_P const cmd_list[] PROGMEM = {
     cmd_string_1,
@@ -83,6 +98,9 @@ PGM_P const cmd_list[] PROGMEM = {
     cmd_string_21,
     cmd_string_22,
     cmd_string_23,
+    cmd_string_24,
+    cmd_string_25,
+    cmd_string_26,
     NULL
 };
 
@@ -107,6 +125,9 @@ enum CMD_LIST {
     CMD_DISABLE_MOTOR2,
     CMD_DISABLE_MOTOR3,
     CMD_DISABLE_MOTOR4,
+    CMD_SET_TEMP_INTERVAL,
+    CMD_GET_TEMP_INTERVAL,
+    CMD_GET_TEMPERATURES,
     CMD_SYSTEM_INFO,
     CMD_DEBUG,
     CMD_SAVE,
@@ -145,6 +166,8 @@ event_t event_list[]  = {
     {           0,    0,    M_PUMP_4, T_DAY, shield_start_pump     },
     {           0,    0,    M_PUMP_4, T_DAY, shield_stop_pump      },
     
+    {   BUILDTIME,    0,    NOT_USED,     10, print_temperature_info },
+    
     {   BUILDTIME,    0,    NOT_USED,     10, print_datetime }    
 };
 
@@ -157,6 +180,10 @@ uint8_t         magic;
 #define EEPROM_START_ADDR_MAPINIT       0x0
 #define EEPROM_START_ADDR_EVENTLIST     (EEPROM_START_ADDR_MAPINIT + sizeof(magic))
 #define EEPROM_START_ADDR_LASTSAVE      (EEPROM_START_ADDR_EVENTLIST + sizeof(event_list))
+
+void temperature_init(void) {
+    sensors.begin();
+}
 
 void eeprom_read_config(void) {
     unsigned long epoch = BUILDTIME;
@@ -237,9 +264,49 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
     return;
 }
 
+static void print_temperature_info(unsigned long time, unsigned int pin, unsigned long rt_time) {
+    uint8_t no_sensors = sensors.getDeviceCount();
+    
+    // call sensors.requestTemperatures() to issue a global temperature
+    // request to all devices on the bus
+    sensors.requestTemperatures(); // Send the command to get temperatures
+    
+    Console.print(F("Active Sensors:"));
+    Console.println(no_sensors);
+    
+    for (uint8_t i = 0; i < no_sensors; i++) {
+        Console.print(F("Time: "));
+        Console.print(time);
+        Console.print(F(" Temperature for Device "));
+        Console.print(i);
+        Console.print(F(" is: "));
+        Console.println(sensors.getTempCByIndex(i));
+    }
+    return;
+}
+
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
     if (debug || !rt_time) {
         println(Time.getHumanTime());
+    }
+    return;
+}
+
+void get_temperature_info(void) {
+    uint8_t no_sensors = sensors.getDeviceCount();
+    
+    // call sensors.requestTemperatures() to issue a global temperature
+    // request to all devices on the bus
+    sensors.requestTemperatures(); // Send the command to get temperatures
+    
+    Console.print(F("Active Sensors:"));
+    Console.println(no_sensors);
+    
+    for (uint8_t i = 0; i < no_sensors; i++) {
+        Console.print(F("Temperature for Device "));
+        Console.print(i);
+        Console.print(F(" is: "));
+        Console.println(sensors.getTempCByIndex(i));
     }
     return;
 }
@@ -395,6 +462,23 @@ void processCommand(const char *recvString) {
             
         case CMD_DISABLE_MOTOR4:
             set_motor_event_info(MOTOR_4, 0, 0, T_DAY);
+            break;
+            
+        case CMD_SET_TEMP_INTERVAL:
+            t = strtoul(arg, NULL, 10);
+            if (t < 0) {
+                t = 0;
+            }
+            event_list[TEMP_INDEX].next_event = t;
+            break;
+
+        case CMD_GET_TEMP_INTERVAL:
+            Console.print(F("Temperature interval: "));
+            Console.println(event_list[TEMP_INDEX].next_event);
+            break;
+            
+        case CMD_GET_TEMPERATURES:
+            get_temperature_info();
             break;
             
         case CMD_SYSTEM_INFO:

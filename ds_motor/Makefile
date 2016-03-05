@@ -20,7 +20,9 @@ ARDUINO_LIBS 	= dc_time\
  Bridge\
  Ethernet\
  Firmata\
- SPI
+ SPI\
+ OneWire\
+ Arduino-Temperature-Control-Library
 
 
 include Arduino.mk

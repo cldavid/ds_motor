@@ -39,6 +39,9 @@ typedef struct {
 #define s_len				s_input.len
 #define s_ready 			s_input.ready
 
+void temperature_init(void);
+void get_temperature_info(void);
+
 void eeprom_read_config(void);
 void eeprom_write_event_list(unsigned long t);
 

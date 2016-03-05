@@ -26,6 +26,7 @@
 #include "LocalLibrary.h"
 #include "motor.hpp"
 
+
 void serialEvent();
 
 ser_string_t 	s_input;
@@ -42,11 +43,11 @@ void setup() {
     
     Bridge.begin();
     Console.begin();
-
-    while (!Console);
     
     shield_pump_init();
 
+    temperature_init();
+    
 	/* Read Event List From EEPROM */
 	eeprom_read_config();
 
@@ -61,7 +62,7 @@ void loop() {
 	unsigned long time = millis();
 
 	Time.updateTime(time);
-
+    
 	Scheduler.update(prevTime, Time.getUnixTime());
 	serialEvent();
 	if (s_ready) {
