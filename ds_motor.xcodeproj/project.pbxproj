@@ -24,6 +24,8 @@
 		679753EB15C9A615003F30DA /* ds_motor.pde in Sources */ = {isa = PBXBuildFile; fileRef = 6797508615C99600003F30DA /* ds_motor.pde */; };
 		67C09A9016278A7B004038A1 /* scheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C09A8F16278A7B004038A1 /* scheduler.cpp */; };
 		67C09A94162798B2004038A1 /* println.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C09A93162798B2004038A1 /* println.cpp */; };
+		67CCC5291C9DE73A0059F821 /* DallasTemperature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67CCC50A1C9DE73A0059F821 /* DallasTemperature.cpp */; };
+		67CCC52A1C9DE73A0059F821 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 67CCC5281C9DE73A0059F821 /* README.md */; };
 		67E96243162374DF00067E14 /* eeprom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E96242162374DF00067E14 /* eeprom.cpp */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +65,26 @@
 		67C09A8F16278A7B004038A1 /* scheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scheduler.cpp; sourceTree = "<group>"; };
 		67C09A92162798A6004038A1 /* println.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = println.h; sourceTree = "<group>"; };
 		67C09A93162798B2004038A1 /* println.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = println.cpp; sourceTree = "<group>"; };
+		67CCC5081C9DE73A0059F821 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		67CCC5091C9DE73A0059F821 /* change.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = change.txt; sourceTree = "<group>"; };
+		67CCC50A1C9DE73A0059F821 /* DallasTemperature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DallasTemperature.cpp; sourceTree = "<group>"; };
+		67CCC50B1C9DE73A0059F821 /* DallasTemperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DallasTemperature.h; sourceTree = "<group>"; };
+		67CCC50E1C9DE73A0059F821 /* Alarm.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Alarm.pde; sourceTree = "<group>"; };
+		67CCC5101C9DE73A0059F821 /* AlarmHandler.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AlarmHandler.pde; sourceTree = "<group>"; };
+		67CCC5121C9DE73A0059F821 /* Multibus_simple.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Multibus_simple.ino; sourceTree = "<group>"; };
+		67CCC5141C9DE73A0059F821 /* Multiple.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Multiple.pde; sourceTree = "<group>"; };
+		67CCC5161C9DE73A0059F821 /* oneWireSearch.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oneWireSearch.ino; sourceTree = "<group>"; };
+		67CCC5181C9DE73A0059F821 /* SetUserData.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SetUserData.ino; sourceTree = "<group>"; };
+		67CCC51A1C9DE73A0059F821 /* Simple.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Simple.pde; sourceTree = "<group>"; };
+		67CCC51C1C9DE73A0059F821 /* Single.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Single.pde; sourceTree = "<group>"; };
+		67CCC51E1C9DE73A0059F821 /* Tester.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tester.pde; sourceTree = "<group>"; };
+		67CCC5201C9DE73A0059F821 /* TwoPin_DS18B20.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoPin_DS18B20.ino; sourceTree = "<group>"; };
+		67CCC5221C9DE73A0059F821 /* WaitForConversion.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WaitForConversion.pde; sourceTree = "<group>"; };
+		67CCC5241C9DE73A0059F821 /* WaitForConversion2.pde */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WaitForConversion2.pde; sourceTree = "<group>"; };
+		67CCC5251C9DE73A0059F821 /* keywords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		67CCC5261C9DE73A0059F821 /* library.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = library.json; sourceTree = "<group>"; };
+		67CCC5271C9DE73A0059F821 /* library.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = library.properties; sourceTree = "<group>"; };
+		67CCC5281C9DE73A0059F821 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		67E96241162373CE00067E14 /* eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eeprom.h; sourceTree = "<group>"; };
 		67E96242162374DF00067E14 /* eeprom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eeprom.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -211,6 +233,7 @@
 		679753E615C9A0B8003F30DA /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				67CCC5071C9DE73A0059F821 /* Arduino-Temperature-Control-Library */,
 				679190741C2B3DAC00A7522E /* Adafruit_Motor_Shield_V2_Library */,
 				67084070162DE6A300B8E296 /* MemoryFree */,
 				67C09A911627985E004038A1 /* print */,
@@ -249,6 +272,138 @@
 			);
 			name = print;
 			path = ../Libraries/print;
+			sourceTree = "<group>";
+		};
+		67CCC5071C9DE73A0059F821 /* Arduino-Temperature-Control-Library */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5081C9DE73A0059F821 /* .gitignore */,
+				67CCC5091C9DE73A0059F821 /* change.txt */,
+				67CCC50A1C9DE73A0059F821 /* DallasTemperature.cpp */,
+				67CCC50B1C9DE73A0059F821 /* DallasTemperature.h */,
+				67CCC50C1C9DE73A0059F821 /* examples */,
+				67CCC5251C9DE73A0059F821 /* keywords.txt */,
+				67CCC5261C9DE73A0059F821 /* library.json */,
+				67CCC5271C9DE73A0059F821 /* library.properties */,
+				67CCC5281C9DE73A0059F821 /* README.md */,
+			);
+			name = "Arduino-Temperature-Control-Library";
+			path = "../libraries/Arduino-Temperature-Control-Library";
+			sourceTree = "<group>";
+		};
+		67CCC50C1C9DE73A0059F821 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC50D1C9DE73A0059F821 /* Alarm */,
+				67CCC50F1C9DE73A0059F821 /* AlarmHandler */,
+				67CCC5111C9DE73A0059F821 /* Multibus_simple */,
+				67CCC5131C9DE73A0059F821 /* Multiple */,
+				67CCC5151C9DE73A0059F821 /* oneWireSearch */,
+				67CCC5171C9DE73A0059F821 /* setUserData */,
+				67CCC5191C9DE73A0059F821 /* Simple */,
+				67CCC51B1C9DE73A0059F821 /* Single */,
+				67CCC51D1C9DE73A0059F821 /* Tester */,
+				67CCC51F1C9DE73A0059F821 /* TwoPin_DS18B20 */,
+				67CCC5211C9DE73A0059F821 /* WaitForConversion */,
+				67CCC5231C9DE73A0059F821 /* WaitForConversion2 */,
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+		67CCC50D1C9DE73A0059F821 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC50E1C9DE73A0059F821 /* Alarm.pde */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		67CCC50F1C9DE73A0059F821 /* AlarmHandler */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5101C9DE73A0059F821 /* AlarmHandler.pde */,
+			);
+			path = AlarmHandler;
+			sourceTree = "<group>";
+		};
+		67CCC5111C9DE73A0059F821 /* Multibus_simple */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5121C9DE73A0059F821 /* Multibus_simple.ino */,
+			);
+			path = Multibus_simple;
+			sourceTree = "<group>";
+		};
+		67CCC5131C9DE73A0059F821 /* Multiple */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5141C9DE73A0059F821 /* Multiple.pde */,
+			);
+			path = Multiple;
+			sourceTree = "<group>";
+		};
+		67CCC5151C9DE73A0059F821 /* oneWireSearch */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5161C9DE73A0059F821 /* oneWireSearch.ino */,
+			);
+			path = oneWireSearch;
+			sourceTree = "<group>";
+		};
+		67CCC5171C9DE73A0059F821 /* setUserData */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5181C9DE73A0059F821 /* SetUserData.ino */,
+			);
+			path = setUserData;
+			sourceTree = "<group>";
+		};
+		67CCC5191C9DE73A0059F821 /* Simple */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC51A1C9DE73A0059F821 /* Simple.pde */,
+			);
+			path = Simple;
+			sourceTree = "<group>";
+		};
+		67CCC51B1C9DE73A0059F821 /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC51C1C9DE73A0059F821 /* Single.pde */,
+			);
+			path = Single;
+			sourceTree = "<group>";
+		};
+		67CCC51D1C9DE73A0059F821 /* Tester */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC51E1C9DE73A0059F821 /* Tester.pde */,
+			);
+			path = Tester;
+			sourceTree = "<group>";
+		};
+		67CCC51F1C9DE73A0059F821 /* TwoPin_DS18B20 */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5201C9DE73A0059F821 /* TwoPin_DS18B20.ino */,
+			);
+			path = TwoPin_DS18B20;
+			sourceTree = "<group>";
+		};
+		67CCC5211C9DE73A0059F821 /* WaitForConversion */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5221C9DE73A0059F821 /* WaitForConversion.pde */,
+			);
+			path = WaitForConversion;
+			sourceTree = "<group>";
+		};
+		67CCC5231C9DE73A0059F821 /* WaitForConversion2 */ = {
+			isa = PBXGroup;
+			children = (
+				67CCC5241C9DE73A0059F821 /* WaitForConversion2.pde */,
+			);
+			path = WaitForConversion2;
 			sourceTree = "<group>";
 		};
 		67E9623F1623738200067E14 /* EEPROM */ = {
@@ -434,10 +589,12 @@
 			files = (
 				679753EB15C9A615003F30DA /* ds_motor.pde in Sources */,
 				6797508815C99600003F30DA /* LocalLibrary.cpp in Sources */,
+				67CCC52A1C9DE73A0059F821 /* README.md in Sources */,
 				679753EA15C9A0B8003F30DA /* time.cpp in Sources */,
 				67E96243162374DF00067E14 /* eeprom.cpp in Sources */,
 				67C09A9016278A7B004038A1 /* scheduler.cpp in Sources */,
 				67C09A94162798B2004038A1 /* println.cpp in Sources */,
+				67CCC5291C9DE73A0059F821 /* DallasTemperature.cpp in Sources */,
 				67084074162DE72C00B8E296 /* MemoryFree.cpp in Sources */,
 				67284072162DE6F800B8E296 /* MemoryFree.h in Sources */,
 				6727508615C99600003F30DA /* ds_motor.pde in Sources */,

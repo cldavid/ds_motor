@@ -23,6 +23,7 @@
 #include <time.h>
 #include <scheduler.h>
 #include <Console.h>
+#include <FileIO.h>
 #include "LocalLibrary.h"
 #include "motor.hpp"
 
@@ -43,6 +44,8 @@ void setup() {
     
     Bridge.begin();
     Console.begin();
+    FileSystem.begin();
+
     
     shield_pump_init();
 

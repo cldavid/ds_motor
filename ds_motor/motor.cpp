@@ -10,11 +10,8 @@
 
 #include "motor.hpp"
 #include <Console.h>
-#include <println.h>
 
 #define NO_PUMPS    4
-
-extern unsigned long   curTime;
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *myPump[NO_PUMPS];
@@ -30,11 +27,15 @@ void shield_pump_init(void) {
 }
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    //println("Time: %lu driving motor %u for %lu ms", time, motor, rt_time);
-    Console.print(F("Time: "));
+    //motor is unsigned no need to test if the content is smaller than 0
+    if (motor > 4) {
+        Console.println(F("Error invalid motor number [0 .. 3]"));
+        return;
+    }
+    Console.print(F("T: "));
     Console.print(time);
     Console.print(F(" driving motor "));
-    Console.print(motor+1);
+    Console.print(motor);
     Console.print(F(" for "));
     Console.print(rt_time);
     Console.print(F(" ms\n\r"));
@@ -46,11 +47,10 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
 }
 
 void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    //println("Time: %lu motor started on pin %u for %lu ms", time, motor, rt_time);
-    Console.print(F("Time: "));
+    Console.print(F("T: "));
     Console.print(time);
     Console.print(F("motor "));
-    Console.print(motor+1);
+    Console.print(motor);
     Console.print(F(" started for "));
     Console.print(rt_time);
     Console.print(F(" ms\n\r"));
@@ -59,11 +59,10 @@ void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_
 }
 
 void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    //println("Time: %lu motor stopped on pin %u for %lu ms", time, motor, rt_time);
-    Console.print(F("Time: "));
+    Console.print(F("T: "));
     Console.print(time);
     Console.print(F("motor "));
-    Console.print(motor+1);
+    Console.print(motor);
     Console.print(F(" stopped for "));
     Console.print(rt_time);
     Console.print(F(" ms\n\r"));

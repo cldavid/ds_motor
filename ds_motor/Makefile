@@ -15,7 +15,6 @@ ARDUINO_LIBS 	= dc_time\
  EEPROM\
  Adafruit_Motor_Shield_V2_Library\
  scheduler\
- print\
  Wire\
  Bridge\
  Ethernet\
