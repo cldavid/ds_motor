@@ -22,7 +22,6 @@
 // Include application, user and local libraries
 #include <time.h>
 #include <scheduler.h>
-#include <Console.h>
 #include <FileIO.h>
 #include "LocalLibrary.h"
 #include "motor.hpp"
@@ -42,10 +41,7 @@ void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
     
-    Bridge.begin();
-    Console.begin();
-    FileSystem.begin();
-
+    Serial1.begin(115200);
     
     shield_pump_init();
 
@@ -69,7 +65,7 @@ void loop() {
 	Scheduler.update(prevTime, Time.getUnixTime());
 	serialEvent();
 	if (s_ready) {
-		Console.println("");
+		Serial1.println("");
 		processCommand(s_buffer);
 		s_len 	= 0;
 		s_ready = false;
@@ -83,9 +79,9 @@ void serialEvent() {
 	   Only read from the serial input when data is available
 	   And output buffer is not being handled 
 	 */
-	while (Console.available()) {
-		inChar	= (char)Console.read(); 										
-		Console.print(inChar);
+	while (Serial1.available()) {
+		inChar	= (char)Serial1.read(); 										
+		Serial1.print(inChar);
 		if (inChar == '\n' || inChar == '\r' || s_len > SERIAL_INPUT_MAX) {
 			s_buffer_add('\0');	
 			s_ready = true;	

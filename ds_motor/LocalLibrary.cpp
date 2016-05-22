@@ -18,7 +18,6 @@
 
 #include <stdio.h>
 #include <avr/pgmspace.h>
-#include <Console.h>
 #include <Process.h>
 #include <FileIO.h>
 #include <DallasTemperature.h>
@@ -139,9 +138,9 @@ void eeprom_read_config(void) {
 
     EEPROM.read_block(&magic, EEPROM_START_ADDR_MAPINIT, sizeof(magic));
     if (magic != magic_num) {
-        Console.println(F("Error invalid magic_num.\nLoading default config!"));
+        Serial1.println(F("Error invalid magic_num.\nLoading default config!"));
     } else {
-        Console.println(F("Reading config from EEPROM."));
+        Serial1.println(F("Reading config from EEPROM."));
         EEPROM.read_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
         EEPROM.read_block(&epoch, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
     }
@@ -152,7 +151,7 @@ void eeprom_read_config(void) {
 }
 
 void eeprom_write_event_list(unsigned long t) {
-    Console.println(F("Updating EEPROM."));
+    Serial1.println(F("Updating EEPROM."));
     EEPROM.write_block(&magic_num, EEPROM_START_ADDR_MAPINIT, sizeof(magic_num));
     EEPROM.write_block(event_list, (void *)EEPROM_START_ADDR_EVENTLIST, sizeof(event_list));
     EEPROM.write_block(&t, (void *)EEPROM_START_ADDR_LASTSAVE, sizeof(unsigned long));
@@ -162,7 +161,7 @@ void get_motor_event_info(unsigned int motor) {
     size_t index;
     
     if (motor <= 0 || motor > 4 ) {
-        Console.println(F("Invalid motor selected"));
+        Serial1.println(F("Invalid motor selected"));
         return;
     }
 
@@ -174,22 +173,22 @@ void get_motor_event_info(unsigned int motor) {
      */
     index = (motor - 1) * 2;
 
-    Console.print(F("Motor "));
-    Console.println(motor);
+    Serial1.print(F("Motor "));
+    Serial1.println(motor);
     
-    Console.print(F("Start: "));
-    Console.println(event_list[index].time);
+    Serial1.print(F("Start: "));
+    Serial1.println(event_list[index].time);
     
-    Console.print(F("Stop: "));
-    Console.println(event_list[index+1].time);
+    Serial1.print(F("Stop: "));
+    Serial1.println(event_list[index+1].time);
     
-    Console.print(F("Rotate for: "));
-    Console.print(event_list[index].rt_time);
-    Console.println(F(" seconds"));
+    Serial1.print(F("Rotate for: "));
+    Serial1.print(event_list[index].rt_time);
+    Serial1.println(F(" seconds"));
     
-    Console.print(F("Every: "));
-    Console.print(event_list[index].next_event);
-    Console.println(F(" seconds"));
+    Serial1.print(F("Every: "));
+    Serial1.print(event_list[index].next_event);
+    Serial1.println(F(" seconds"));
 }
 
 void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned long rt_time, unsigned long rp_time) {
@@ -197,12 +196,12 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
     
     //motor is unsigned no need to test if the content is smaller than 0
     if (motor > 4) {
-        Console.println(F("Error: unknown motor"));
+        Serial1.println(F("Error: unknown motor"));
         return;
     }
     
     if (rt_time >= rp_time) {
-        Console.println(F("Error: rt_time >= rp_time"));
+        Serial1.println(F("Error: rt_time >= rp_time"));
         return;
     }
         
@@ -228,27 +227,20 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
 static void print_temperature_info(unsigned long time, unsigned int pin, unsigned long rt_time) {
     uint8_t no_sensors = sensors.getDeviceCount();
     
-    File dataFile = FileSystem.open("/mnt/sd/datalog.txt", FILE_APPEND);
-    if (!dataFile) {
-        Console.println(F("Error opening datalog.txt"));
-        return;
-    }
-    
     // call sensors.requestTemperatures() to issue a global temperature
     // request to all devices on the bus
     sensors.requestTemperatures(); // Send the command to get temperatures
     
     for (uint8_t i = 0; i < no_sensors; i++) {
-        dataFile.print(F("{\n\"timestamp:\" "));
-        dataFile.print(time);
-        dataFile.print(F(",\n\"sensor:\" "));
-        dataFile.print(i);
-        dataFile.print(F(",\n\"temperature:\" "));
-        dataFile.println(sensors.getTempCByIndex(i));
-        dataFile.print(F("\n},\n"));
+        Serial1.print(F("{\n\"timestamp:\" "));
+        Serial1.print(time);
+        Serial1.print(F(",\n\"sensor:\" "));
+        Serial1.print(i);
+        Serial1.print(F(",\n\"temperature:\" "));
+        Serial1.println(sensors.getTempCByIndex(i));
+        Serial1.print(F("\n},\n"));
 
     }
-    dataFile.close();
     return;
 }
 
@@ -272,9 +264,9 @@ static void yun_get_epoch(unsigned long time, unsigned int pin, unsigned long rt
 static void print_datetime(unsigned long time, unsigned int pin, unsigned long rt_time) {
     if (!rt_time) {
 #ifdef __DC_TIME_HAS_HUMAN_TIME__
-        Console.println(Time.getHumanTime());
+        Serial1.println(Time.getHumanTime());
 #else
-        Console.println(Time.getUnixTime());
+        Serial1.println(Time.getUnixTime());
 #endif //__DC_TIME_HAS_HUMAN_TIME__
     }
     return;
@@ -303,21 +295,21 @@ void processCommand(const char *recvString) {
     
     switch(i) {
         case CMD_HELP:
-            Console.println(F("Console Command List:"));
+            Serial1.println(F("Serial1 Command List:"));
             for (i = 0; i < CMD_UNKNOWN; i++) {
                 const char *p = (const char *)pgm_read_word(&cmd_list[i]);
                 strcpy_P(buffer, p);
-                Console.println(buffer);
+                Serial1.println(buffer);
             }
             break;
             
         case CMD_GET_UNIXTIME:
-            Console.println(Time.getUnixTime());
+            Serial1.println(Time.getUnixTime());
             break;
 
         case CMD_MOTOR:
             if (2 != sscanf(arg, "%u\t%lu", &motor, &rt_time)) {
-                Console.println(F("Error invalid input"));
+                Serial1.println(F("Error invalid input"));
                 break;
             }
             
@@ -328,7 +320,7 @@ void processCommand(const char *recvString) {
         case CMD_SET_MOTOR:
             if (4 != sscanf(arg, "%u\tstart\t%lu\tfor\t%lu\tevery\t%lu",
                             &motor, &start_time, &rt_time, &rp_time)) {
-                Console.println(F("Error invalid input"));
+                Serial1.println(F("Error invalid input"));
                 break;
             }
             
@@ -339,7 +331,7 @@ void processCommand(const char *recvString) {
         case CMD_DISABLE_MOTOR:
         {
             if (1 != sscanf(arg, "%u", &motor)) {
-                Console.println(F("Error invalid input"));
+                Serial1.println(F("Error invalid input"));
                 break;
             }
             
@@ -362,8 +354,8 @@ void processCommand(const char *recvString) {
             break;
 
         case CMD_GET_TEMP_INTERVAL:
-            Console.print(F("Interval = "));
-            Console.println(event_list[TEMP_INDEX].next_event);
+            Serial1.print(F("Interval = "));
+            Serial1.println(event_list[TEMP_INDEX].next_event);
             break;
             
         case CMD_GET_TEMPERATURES:

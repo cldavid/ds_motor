@@ -9,7 +9,6 @@
 #include "utility/Adafruit_PWMServoDriver.h"
 
 #include "motor.hpp"
-#include <Console.h>
 
 #define NO_PUMPS    4
 
@@ -29,16 +28,16 @@ void shield_pump_init(void) {
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     //motor is unsigned no need to test if the content is smaller than 0
     if (motor > 4) {
-        Console.println(F("Error invalid motor number [0 .. 3]"));
+        Serial1.println(F("Error invalid motor number [0 .. 3]"));
         return;
     }
-    Console.print(F("T: "));
-    Console.print(time);
-    Console.print(F(" driving motor "));
-    Console.print(motor);
-    Console.print(F(" for "));
-    Console.print(rt_time);
-    Console.print(F(" ms\n\r"));
+    Serial1.print(F("T: "));
+    Serial1.print(time);
+    Serial1.print(F(" driving motor "));
+    Serial1.print(motor);
+    Serial1.print(F(" for "));
+    Serial1.print(rt_time);
+    Serial1.print(F(" ms\n\r"));
     
     myPump[motor]->run(FORWARD);
     delay(rt_time);
@@ -47,25 +46,25 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
 }
 
 void shield_start_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    Console.print(F("T: "));
-    Console.print(time);
-    Console.print(F("motor "));
-    Console.print(motor);
-    Console.print(F(" started for "));
-    Console.print(rt_time);
-    Console.print(F(" ms\n\r"));
+    Serial1.print(F("T: "));
+    Serial1.print(time);
+    Serial1.print(F("motor "));
+    Serial1.print(motor);
+    Serial1.print(F(" started for "));
+    Serial1.print(rt_time);
+    Serial1.print(F(" ms\n\r"));
     myPump[motor]->run(FORWARD);
     return;
 }
 
 void shield_stop_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
-    Console.print(F("T: "));
-    Console.print(time);
-    Console.print(F("motor "));
-    Console.print(motor);
-    Console.print(F(" stopped for "));
-    Console.print(rt_time);
-    Console.print(F(" ms\n\r"));
+    Serial1.print(F("T: "));
+    Serial1.print(time);
+    Serial1.print(F("motor "));
+    Serial1.print(motor);
+    Serial1.print(F(" stopped for "));
+    Serial1.print(rt_time);
+    Serial1.print(F(" ms\n\r"));
     myPump[motor]->run(RELEASE);
     return;
 }
