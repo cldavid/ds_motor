@@ -253,7 +253,7 @@ static void print_temperature_info(unsigned long time, unsigned int pin, unsigne
 }
 
 static void yun_get_epoch(unsigned long time, unsigned int pin, unsigned long rt_time) {
-    long    t;
+    long    t = 0;
     Process pTime;
     
     // Get UNIX timestamp
@@ -362,7 +362,7 @@ void processCommand(const char *recvString) {
             break;
 
         case CMD_GET_TEMP_INTERVAL:
-            Console.print(F("I = "));
+            Console.print(F("Interval = "));
             Console.println(event_list[TEMP_INDEX].next_event);
             break;
             
