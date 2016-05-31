@@ -22,12 +22,12 @@ void shield_pump_init(void) {
         myPump[i]->setSpeed(255);
         myPump[i]->run(RELEASE);
     }
-    
+
 }
 
 void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_time) {
     //motor is unsigned no need to test if the content is smaller than 0
-    if (motor > 4) {
+    if (motor > 3) {
         Serial1.println(F("Error invalid motor number [0 .. 3]"));
         return;
     }
@@ -38,7 +38,7 @@ void shield_drive_pump(unsigned long time, unsigned int motor, unsigned long rt_
     Serial1.print(F(" for "));
     Serial1.print(rt_time);
     Serial1.print(F(" ms\n\r"));
-    
+
     myPump[motor]->run(FORWARD);
     delay(rt_time);
     myPump[motor]->run(RELEASE);

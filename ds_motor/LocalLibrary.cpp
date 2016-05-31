@@ -212,7 +212,7 @@ void set_motor_event_info(unsigned int motor, unsigned long start_time, unsigned
   event_list[index].time          = start_time;
   event_list[index+1].time        = start_time + rt_time;
   event_list[index].rt_time       = rt_time;
-  event_list[index + 1].rt_time   = 0;
+  event_list[index+1].rt_time     = 0;
   event_list[index].next_event    = rp_time;
   event_list[index+1].next_event  = rp_time;
 
@@ -228,12 +228,11 @@ static void print_temperature_info(unsigned long time, unsigned int pin, unsigne
   // call sensors.requestTemperatures() to issue a global temperature
   // request to all devices on the bus
   sensors.requestTemperatures(); // Send the command to get temperatures
+  Serial1.print(F("Epoch-Time: "));
+  Serial1.print(time);
+  Serial1.print(F(" Sensor: "));
 
   for (uint8_t i = 0; i < no_sensors; i++) {
-    Serial1.print(F("Epoch-Time: "));
-    Serial1.print(time);
-    Serial1.print(F(" Sensor: "));
-
     sensors.getAddress(deviceAddress, i);
     for (uint8_t j = 0; j < 8; j++) {
       Serial1.print(deviceAddress[j], HEX);
@@ -241,6 +240,10 @@ static void print_temperature_info(unsigned long time, unsigned int pin, unsigne
 
     Serial1.print(F(" T: "));
     Serial1.println(sensors.getTempCByIndex(i));
+
+    if (i < (no_sensors - 1)) {
+      Serial1.print(F(", "));
+    }
   }
   return;
 }
