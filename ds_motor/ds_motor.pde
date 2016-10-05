@@ -32,7 +32,6 @@ void serialEvent();
 
 ser_string_t 	s_input;
 unsigned long   prevTime;
-
 ///
 /// @brief	Setup
 /// @details
@@ -42,11 +41,27 @@ void setup() {
 	memset(&s_input, 0, sizeof(ser_string_t));
 	void dc_time_init(void);
 
-    Serial1.begin(115200);
+	Serial1.begin(115200);
+	size_t t = 0;
+	while (1) {
+		if (!Serial1.available()) {
+			continue;
+		}
+		char tChar = Serial1.read();
+		if (tChar == 'a') {
+			t++;
+		} else {
+			t = 0;
+		}
 
-    shield_pump_init();
+		if (t == 100) {
+			Serial1.write("Hello, Dave. You're looking well today\n");
+			break;
+		}
+	}
+	shield_pump_init();
 
-    temperature_init();
+	temperature_init();
 
 	/* Read Event List From EEPROM */
 	eeprom_read_config();
@@ -71,7 +86,7 @@ void loop() {
 		s_len 	= 0;
 		s_ready = false;
 	}
-    prevTime = Time.getUnixTime();
+	prevTime = Time.getUnixTime();
 }
 
 void serialEvent() {
