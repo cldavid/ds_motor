@@ -239,11 +239,13 @@ static void print_temperature_info(unsigned long time, unsigned int pin, unsigne
     }
 
     Serial1.print(F(" T: "));
-    Serial1.println(sensors.getTempCByIndex(i));
+    Serial1.print(sensors.getTempCByIndex(i));
 
     if (i < (no_sensors - 1)) {
       Serial1.print(F(", "));
-    }
+    } else {
+      Serial1.println("");
+	}
   }
   return;
 }
