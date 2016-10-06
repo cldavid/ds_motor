@@ -1,11 +1,11 @@
-  ds_motor
-  Dosing unit firmware for the embedded atmel micro controller that is present on the arduino yun.
+ds_motor
+    Dosing unit firmware for the embedded atmel micro controller that is present on the arduino yun.
 
 Build
- make
+    make
 
 Upload
- make upload
+    make upload
 
 Clean
- make clean
+    make clean

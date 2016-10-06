@@ -55,7 +55,7 @@ void setup() {
 		}
 
 		if (t == 100) {
-			Serial1.write("Hello, Dave. You're looking well today\n");
+			Serial1.println(F("Hello, Dave. You're looking well today\n"));
 			break;
 		}
 	}
