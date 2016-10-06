@@ -91,15 +91,16 @@ enum CMD_LIST {
  *
  * Index [0-5] are reserved for motor 1,2 and 3
  *
- * Settings for Motor 1 are located at index 0 and 1
- * Settings for Motor 2 are located at index 2 and 3
- * Settings for Motor 3 are located at index 4 and 5
+ * Settings for Motor 0 are located at index 0 and 1
+ * Settings for Motor 1 are located at index 2 and 3
+ * Settings for Motor 2 are located at index 4 and 5
+ * Settings for Motor 3 are located at index 6 and 7 
+ * Settings for Temperature interval is located at index 8
  *
- * Index [6-... Free to use
+ * Index [8-... Free to use
  * For disabling a task set time to 0
  *
  */
-
 event_t event_list[]  = {
 	{           0,    0,    M_PUMP_1, T_DAY, shield_start_pump          },
 	{           0,    0,    M_PUMP_1, T_DAY, shield_stop_pump           },
